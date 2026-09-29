@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCZONE — O teu PC, sem limites</title>
+<meta name="description" content="EliteDigital redesenhada: futurista, tipografia Space Grotesk + JetBrains Mono, num único ficheiro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ELITEDIGITAL · Sistema de design "ORBIT"
+   Futurista minimalista premium · PT/EN
+   Tipografia: Space Grotesk (títulos) · Inter (corpo) · JetBrains Mono (dados)
+   ========================================================================== */
+
+/* ---------- Tokens ---------- */
+:root{
+  /* Superfícies (grafite) */
+  --bg:#06070A;
+  --bg-elev:#0A0C11;
+  --surface:#0E1118;
+  --surface-2:#131722;
+  --surface-3:#1A1F2C;
+
+  /* Linhas */
+  --line:rgba(255,255,255,.075);
+  --line-2:rgba(255,255,255,.13);
+  --line-3:rgba(255,255,255,.22);
+
+  /* Texto */
+  --text:#EEF1F7;
+  --text-2:#A6AEBC;
+  --text-3:#69727F;
+
+  /* Acento único: elétrico */
+  --accent:#008CFF;
+  --accent-2:#5AB6FF;
+  --accent-ink:#031021;
+  --accent-soft:rgba(0,140,255,.12);
+  --accent-glow:0 0 0 1px rgba(0,140,255,.35), 0 14px 44px -14px rgba(0,140,255,.45);
+
+  /* Estado */
+  --ok:#4ADE80;
+  --warn:#F5A524;
+  --danger:#FF5A6E;
+
+  /* Tipografia */
+  --f-display:"Space Grotesk","Inter","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-body:"Inter","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-mono:"JetBrains Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace;
+
+  /* Escala fluida */
+  --fs-hero:clamp(2.6rem,7.2vw,5.4rem);
+  --fs-h1:clamp(2rem,4.4vw,3.25rem);
+  --fs-h2:clamp(1.5rem,2.6vw,2.15rem);
+  --fs-h3:clamp(1.1rem,1.6vw,1.3rem);
+  --fs-body:clamp(.95rem,1.05vw,1.0625rem);
+  --fs-small:.875rem;
+  --fs-micro:.75rem;
+
+  /* Espaçamento / forma */
+  --gutter:clamp(1.15rem,4vw,2.5rem);
+  --section:clamp(3.5rem,7vw,6.5rem);
+  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:28px;
+  --maxw:1360px;
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --shadow-1:0 1px 0 rgba(255,255,255,.04) inset, 0 20px 50px -30px rgba(0,0,0,.9);
+  --shadow-2:0 40px 90px -50px rgba(0,0,0,1);
+}
+
+/* ---------- Reset ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--f-body);font-size:var(--fs-body);line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+ul{margin:0;padding:0;list-style:none}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;letter-spacing:-.025em;line-height:1.06;margin:0}
+p{margin:0}
+::selection{background:var(--accent);color:var(--accent-ink)}
+
+/* Scrollbar discreta */
+*::-webkit-scrollbar{height:8px;width:10px}
+*::-webkit-scrollbar-thumb{background:var(--surface-3);border-radius:99px}
+*::-webkit-scrollbar-track{background:transparent}
+
+/* Foco visível */
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* ---------- Utilitários ---------- */
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.eyebrow{
+  font-family:var(--f-mono);font-size:var(--fs-micro);text-transform:uppercase;
+  letter-spacing:.24em;color:var(--text-3);display:inline-flex;align-items:center;gap:.6rem
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--accent);opacity:.8}
+.muted{color:var(--text-2)}
+.tiny{font-size:var(--fs-micro);letter-spacing:.06em}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);padding:.6rem 1rem;z-index:200;border-radius:0 0 var(--r-sm) 0}
+.skip:focus{left:0}
+.hr{height:1px;background:var(--line);border:0;margin:0}
+
+/* Fundo: grelha técnica + halo suave (1 acento, sem neon) */
+.bg-field{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 82% -8%, rgba(0,140,255,.09), transparent 62%),
+    radial-gradient(760px 460px at 8% 4%, rgba(70,130,255,.07), transparent 60%),
+    var(--bg);
+}
+.bg-grid{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(120% 80% at 50% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 80% at 50% 0%,#000 20%,transparent 78%);
+}
+
+/* ---------- Cabeçalho ---------- */
+.topbar{border-bottom:1px solid var(--line);background:rgba(6,7,10,.7);backdrop-filter:blur(10px)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:38px}
+.topbar-item{font-family:var(--f-mono);font-size:var(--fs-micro);letter-spacing:.12em;color:var(--text-3);text-transform:uppercase}
+.topbar-item b{color:var(--accent);font-weight:500}
+
+.site-head{position:sticky;top:0;z-index:80;border-bottom:1px solid var(--line);
+  background:rgba(6,7,10,.72);backdrop-filter:blur(18px) saturate(140%);
+  transition:border-color .3s var(--ease),background .3s var(--ease)}
+.site-head.scrolled{background:rgba(6,7,10,.9);border-color:var(--line-2)}
+.head-row{display:flex;align-items:center;gap:clamp(1rem,2.5vw,2.2rem);min-height:72px}
+
+.logo{display:inline-flex;align-items:center;gap:.7rem;flex:0 0 auto}
+.logo-mark{width:34px;height:34px;flex:0 0 auto;position:relative}
+.logo-mark svg{width:100%;height:100%;display:block}
+.logo-txt{font-family:var(--f-display);font-weight:700;letter-spacing:-.03em;font-size:1.12rem;line-height:1}
+.logo-txt span{color:var(--accent)}
+.logo-sub{font-family:var(--f-mono);font-size:.56rem;letter-spacing:.34em;color:var(--text-3);text-transform:uppercase;margin-top:3px}
+
+.nav{display:flex;align-items:center;gap:.15rem;margin-left:auto}
+.nav a{position:relative;padding:.6rem .8rem;border-radius:var(--r-sm);color:var(--text-2);
+  font-size:.9rem;font-weight:500;transition:color .2s var(--ease),background .2s var(--ease)}
+.nav a:hover,.nav a[aria-current="page"]{color:var(--text);background:var(--surface-2)}
+.nav a[aria-current="page"]::after{content:"";position:absolute;left:.8rem;right:.8rem;bottom:.25rem;height:1px;background:var(--accent)}
+
+.head-actions{display:flex;align-items:center;gap:.5rem;margin-left:.4rem}
+.icon-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;
+  border:1px solid var(--line);background:var(--surface);color:var(--text-2);cursor:pointer;
+  transition:.2s var(--ease)}
+.icon-btn:hover{color:var(--text);border-color:var(--line-3);background:var(--surface-2);transform:translateY(-1px)}
+.icon-btn svg{width:18px;height:18px}
+.icon-btn .badge{position:absolute;transform:translate(14px,-13px);min-width:18px;height:18px;padding:0 5px;
+  border-radius:99px;background:var(--accent);color:var(--accent-ink);font-family:var(--f-mono);
+  font-size:.62rem;font-weight:700;display:grid;place-items:center;line-height:1}
+.icon-btn{position:relative}
+
+.lang{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--surface)}
+.lang button{border:0;background:transparent;padding:.42rem .72rem;cursor:pointer;
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;color:var(--text-3);transition:.2s var(--ease)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+
+.burger{display:none}
+
+/* Pesquisa (overlay) */
+.searchbar{border-top:1px solid var(--line);background:var(--bg-elev);display:none}
+.searchbar.open{display:block}
+.searchbar .wrap{padding-block:1rem;display:flex;gap:.75rem;align-items:center}
+.search-input{flex:1;display:flex;align-items:center;gap:.7rem;border:1px solid var(--line-2);
+  border-radius:var(--r-md);background:var(--surface);padding:.7rem .95rem;transition:.2s var(--ease)}
+.search-input:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.search-input input{flex:1;border:0;background:transparent;outline:none;font-size:1rem}
+.search-input kbd{font-family:var(--f-mono);font-size:.62rem;color:var(--text-3);border:1px solid var(--line-2);
+  border-radius:6px;padding:.15rem .4rem}
+.search-hits{margin-top:.85rem;display:grid;gap:.4rem}
+.search-hit{display:flex;align-items:center;gap:.9rem;padding:.55rem .7rem;border-radius:var(--r-sm);
+  border:1px solid transparent;transition:.15s var(--ease)}
+.search-hit:hover{background:var(--surface-2);border-color:var(--line)}
+.search-hit img{width:42px;height:42px;object-fit:contain;background:#fff;border-radius:8px;padding:3px;flex:0 0 auto}
+.search-hit .sh-name{font-size:.875rem;font-weight:500;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:46ch}
+.search-hit .sh-price{margin-left:auto;font-family:var(--f-mono);color:var(--accent);font-size:.85rem}
+
+/* ---------- Botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  padding:.85rem 1.35rem;border-radius:99px;border:1px solid transparent;cursor:pointer;
+  font-family:var(--f-display);font-weight:600;font-size:.92rem;letter-spacing:-.01em;
+  transition:transform .18s var(--ease),background .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease),box-shadow .25s var(--ease)}
+.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:var(--accent-glow)}
+.btn-ghost{border-color:var(--line-2);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.btn-quiet{background:var(--surface-2);color:var(--text-2);border-color:var(--line)}
+.btn-quiet:hover{color:var(--text);background:var(--surface-3)}
+.btn-sm{padding:.6rem 1rem;font-size:.82rem}
+.btn:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ---------- Cartões / superfícies ---------- */
+.card{background:linear-gradient(180deg,var(--surface),var(--bg-elev));border:1px solid var(--line);
+  border-radius:var(--r-lg);box-shadow:var(--shadow-1)}
+.corner{position:relative;overflow:hidden}
+.corner::before,.corner::after{content:"";position:absolute;width:14px;height:14px;
+  border:1px solid var(--accent);opacity:0;transition:opacity .25s var(--ease);pointer-events:none}
+.corner::before{top:9px;left:9px;border-right:0;border-bottom:0}
+.corner::after{bottom:9px;right:9px;border-left:0;border-top:0}
+.corner:hover::before,.corner:hover::after{opacity:.75}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;padding-block:clamp(3rem,7vw,6rem) clamp(2.5rem,5vw,4rem)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.hero h1{font-size:var(--fs-hero);letter-spacing:-.045em;margin-block:1.1rem .9rem}
+.hero h1 em{font-style:normal;position:relative;white-space:nowrap}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.09em;background:var(--accent);opacity:.85}
+.hero-lead{color:var(--text-2);font-size:clamp(1rem,1.25vw,1.15rem);max-width:52ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
+.hero-stats{display:flex;flex-wrap:wrap;gap:clamp(1.2rem,3vw,2.6rem);margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+.stat .n{font-family:var(--f-display);font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:600;letter-spacing:-.03em;line-height:1}
+.stat .n b{color:var(--accent);font-weight:600}
+.stat .l{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-top:.45rem}
+
+/* Painel HUD decorativo */
+.hud{position:relative;border:1px solid var(--line-2);border-radius:var(--r-xl);background:
+  radial-gradient(120% 100% at 100% 0%,rgba(0,140,255,.10),transparent 55%),linear-gradient(180deg,var(--surface-2),var(--bg-elev));
+  padding:1.15rem;box-shadow:var(--shadow-2)}
+.hud-bar{display:flex;align-items:center;gap:.45rem;padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+.dot{width:7px;height:7px;border-radius:99px;background:var(--surface-3)}
+.dot.on{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.hud-bar .lbl{margin-left:auto;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.2em;color:var(--text-3);text-transform:uppercase}
+.hud-body{padding-top:1rem;display:grid;gap:.85rem}
+.hud-row{display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:center;
+  font-family:var(--f-mono);font-size:.76rem;color:var(--text-2)}
+.hud-row .bar{grid-column:1/-1;height:3px;border-radius:99px;background:var(--surface-3);overflow:hidden}
+.hud-row .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:99px;
+  animation:load 1.9s var(--ease) both}
+@keyframes load{from{width:0}}
+.hud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.2rem}
+.hud-cell{border:1px solid var(--line);border-radius:var(--r-md);padding:.7rem;background:rgba(255,255,255,.02)}
+.hud-cell .k{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.16em;color:var(--text-3);text-transform:uppercase}
+.hud-cell .v{font-family:var(--f-display);font-size:1.02rem;font-weight:600;margin-top:.28rem;letter-spacing:-.02em}
+.scan{position:absolute;inset:auto 0 0 0;height:34%;pointer-events:none;border-radius:0 0 var(--r-xl) var(--r-xl);
+  background:linear-gradient(180deg,transparent,rgba(0,140,255,.05));animation:scan 6s linear infinite}
+@keyframes scan{0%{transform:translateY(-140%)}100%{transform:translateY(140%)}}
+
+/* ---------- Faixa de categorias ---------- */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.cat{position:relative;background:var(--bg-elev);padding:1.35rem 1.15rem;display:flex;flex-direction:column;gap:.55rem;
+  transition:background .25s var(--ease),transform .25s var(--ease)}
+.cat:hover{background:var(--surface-2)}
+.cat .ico{width:30px;height:30px;color:var(--accent);opacity:.9}
+.cat .ico svg{width:100%;height:100%}
+.cat .t{font-family:var(--f-display);font-weight:600;font-size:1rem;letter-spacing:-.02em}
+.cat .d{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.12em;color:var(--text-3);text-transform:uppercase}
+.cat .go{position:absolute;right:1rem;top:1.2rem;opacity:0;transform:translateX(-6px);transition:.25s var(--ease);color:var(--accent)}
+.cat:hover .go{opacity:1;transform:translateX(0)}
+.cat:last-child{grid-column:auto/-1}
+
+/* ---------- Cabeçalhos de secção ---------- */
+.sec{padding-block:var(--section)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:1.9rem;flex-wrap:wrap}
+.sec-head h2{font-size:var(--fs-h2);margin-top:.7rem}
+.sec-head .sub{color:var(--text-3);font-size:.92rem;max-width:60ch;margin-top:.5rem}
+.carousel-nav{display:flex;gap:.45rem}
+.rail{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.75rem;
+  scrollbar-width:thin;scroll-behavior:smooth}
+.rail>*{scroll-snap-align:start;flex:0 0 auto}
+.rail::-webkit-scrollbar{height:6px}
+.rail::-webkit-scrollbar-thumb{background:var(--surface-3);border-radius:99px}
+
+/* ---------- Cartão de produto ---------- */
+.pcard{width:262px;position:relative;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:linear-gradient(180deg,var(--surface),var(--bg-elev));
+  display:flex;flex-direction:column;transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.pcard:hover{transform:translateY(-5px);border-color:var(--line-3);box-shadow:0 30px 60px -40px rgba(0,0,0,.95)}
+.pcard-media{position:relative;aspect-ratio:1/1;background:#fff;margin:.7rem;border-radius:var(--r-md);
+  display:grid;place-items:center;overflow:hidden}
+.pcard-media img{width:100%;height:100%;object-fit:contain;padding:.6rem;transition:transform .5s var(--ease)}
+.pcard:hover .pcard-media img{transform:scale(1.05)}
+.pcard-media .ph{position:absolute;inset:0;display:grid;place-items:center;background:
+  repeating-linear-gradient(45deg,#f2f4f8,#f2f4f8 10px,#e9edf3 10px,#e9edf3 20px);color:#94a3b8;
+  font-family:var(--f-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
+.pcard-media img[src=""]{opacity:0}
+.flags{position:absolute;top:.55rem;left:.55rem;display:flex;flex-direction:column;gap:.3rem;align-items:flex-start;z-index:2}
+.flag{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.24rem .5rem;border-radius:99px;background:var(--surface-3);color:var(--text-2);border:1px solid var(--line-2)}
+.flag.new{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:700}
+.flag.off{background:#1B2430;color:var(--warn);border-color:rgba(245,165,36,.3)}
+.flag.out{background:rgba(255,90,110,.12);color:var(--danger);border-color:rgba(255,90,110,.28)}
+
+.quick{position:absolute;right:.55rem;top:.55rem;display:flex;flex-direction:column;gap:.35rem;z-index:2;
+  opacity:0;transform:translateX(6px);transition:.25s var(--ease)}
+.pcard:hover .quick{opacity:1;transform:translateX(0)}
+.quick button{width:32px;height:32px;border-radius:9px;border:1px solid var(--line-2);background:rgba(10,12,17,.86);
+  color:var(--text-2);display:grid;place-items:center;cursor:pointer;transition:.2s var(--ease)}
+.quick button:hover{color:var(--accent);border-color:var(--accent)}
+.quick svg{width:14px;height:14px}
+
+.pcard-body{padding:0 .95rem .95rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.pcat{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.pname{font-family:var(--f-display);font-size:.95rem;font-weight:500;letter-spacing:-.015em;line-height:1.32;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em}
+.pname a:hover{color:var(--accent)}
+.pmeta{display:flex;align-items:center;gap:.5rem;font-family:var(--f-mono);font-size:.66rem;color:var(--text-3)}
+.stock{display:inline-flex;align-items:center;gap:.4rem}
+.pmeta .stock i{width:5px;height:5px;border-radius:99px;background:var(--ok);display:block}
+.pmeta .stock.no i{background:var(--danger)}
+.pmeta .rev{margin-left:auto;color:var(--warn);letter-spacing:.04em}
+.price-row{margin-top:auto;padding-top:.65rem;border-top:1px solid var(--line);display:flex;align-items:flex-end;justify-content:space-between;gap:.6rem}
+.price{font-family:var(--f-mono);font-size:1.16rem;font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--text)}
+.price .cur{font-size:.78rem;color:var(--text-3);margin-left:.15rem}
+.price-old{font-family:var(--f-mono);font-size:.7rem;color:var(--text-3);text-decoration:line-through;margin-bottom:.25rem}
+.add{width:38px;height:38px;flex:0 0 auto;border-radius:12px;border:1px solid var(--line-2);background:var(--surface-2);
+  color:var(--text-2);display:grid;place-items:center;cursor:pointer;transition:.2s var(--ease)}
+.add:hover{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.add.done{background:var(--ok);border-color:transparent;color:#04140A}
+.add svg{width:16px;height:16px}
+
+/* Grelha (página de categoria) */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:1.1rem}
+.grid .pcard{width:auto}
+
+/* ---------- Serviços ---------- */
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem}
+.svc-card{padding:1.5rem 1.35rem;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:linear-gradient(180deg,var(--surface),var(--bg-elev));transition:.3s var(--ease);position:relative;overflow:hidden}
+.svc-card::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s var(--ease)}
+.svc-card:hover{transform:translateY(-4px);border-color:var(--line-2)}
+.svc-card:hover::after{opacity:.9}
+.svc-ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+  border:1px solid var(--line-2);background:var(--surface-2);color:var(--accent);margin-bottom:1rem}
+.svc-ico svg{width:20px;height:20px}
+.svc-card h3{font-size:1.06rem;letter-spacing:-.02em}
+.svc-card p{color:var(--text-3);font-size:.875rem;margin-top:.5rem}
+.svc-card .link{margin-top:1rem;display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+
+/* ---------- Confiança ---------- */
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.trust div{background:var(--bg-elev);padding:1.3rem 1.2rem;display:flex;gap:.85rem;align-items:flex-start}
+.trust svg{width:20px;height:20px;color:var(--accent);flex:0 0 auto;margin-top:2px}
+.trust b{display:block;font-family:var(--f-display);font-weight:600;font-size:.94rem;letter-spacing:-.01em}
+.trust span{color:var(--text-3);font-size:.8rem}
+
+/* ---------- Newsletter / CTA ---------- */
+.cta{position:relative;border:1px solid var(--line-2);border-radius:var(--r-xl);overflow:hidden;
+  background:radial-gradient(90% 140% at 100% 0%,rgba(0,140,255,.14),transparent 58%),linear-gradient(180deg,var(--surface-2),var(--bg-elev));
+  padding:clamp(1.8rem,4vw,3rem);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:2rem;align-items:center}
+.cta h2{font-size:var(--fs-h2)}
+.news{display:flex;gap:.6rem;flex-wrap:wrap}
+.news input{flex:1 1 220px;min-width:0;padding:.9rem 1.1rem;border-radius:99px;border:1px solid var(--line-2);
+  background:var(--bg);outline:none;transition:.2s var(--ease)}
+.news input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.news-msg{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;color:var(--accent);margin-top:.7rem;min-height:1.1em}
+
+/* ---------- Footer ---------- */
+footer{margin-top:var(--section);border-top:1px solid var(--line);background:var(--bg-elev)}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.35fr) repeat(4,minmax(0,1fr));gap:2rem;padding-block:3rem}
+.foot-grid h4{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);font-weight:500;margin-bottom:.9rem}
+.foot-grid li+li{margin-top:.5rem}
+.foot-grid a{color:var(--text-2);font-size:.875rem;transition:color .2s var(--ease)}
+.foot-grid a:hover{color:var(--accent)}
+.foot-about p{color:var(--text-3);font-size:.875rem;max-width:36ch;margin-top:.9rem}
+.contact-list{margin-top:1.1rem;display:grid;gap:.45rem}
+.contact-list a,.contact-list span{display:flex;gap:.55rem;align-items:center;font-family:var(--f-mono);font-size:.76rem;color:var(--text-2)}
+.contact-list svg{width:14px;height:14px;color:var(--accent);flex:0 0 auto}
+.foot-bottom{border-top:1px solid var(--line);padding-block:1.2rem;display:flex;flex-wrap:wrap;gap:1rem;
+  align-items:center;justify-content:space-between;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;color:var(--text-3)}
+.pays{display:flex;gap:.4rem;flex-wrap:wrap}
+.pays span{border:1px solid var(--line);border-radius:6px;padding:.28rem .5rem;font-size:.6rem;letter-spacing:.12em}
+
+/* ---------- Página de categoria ---------- */
+.crumb{display:flex;gap:.5rem;align-items:center;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text-3);padding-block:1.1rem}
+.crumb a:hover{color:var(--accent)}
+.page-head{padding-block:1.2rem 2rem;border-bottom:1px solid var(--line)}
+.page-head h1{font-size:var(--fs-h1);margin-top:.8rem}
+.page-head .sub{color:var(--text-3);max-width:64ch;margin-top:.7rem}
+
+.cat-layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:clamp(1.5rem,3vw,2.6rem);padding-block:2rem}
+.filters{position:sticky;top:96px;align-self:start;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:var(--bg-elev);padding:1.15rem;max-height:calc(100vh - 120px);overflow:auto}
+.fgroup+.fgroup{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.fgroup h3{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);font-weight:500;margin-bottom:.85rem}
+.chip{display:flex;align-items:center;gap:.55rem;padding:.42rem 0;font-size:.86rem;color:var(--text-2);cursor:pointer;
+  transition:color .2s var(--ease)}
+.chip:hover{color:var(--text)}
+.chip input{appearance:none;width:16px;height:16px;border:1px solid var(--line-3);border-radius:5px;background:var(--surface-2);
+  display:grid;place-items:center;cursor:pointer;transition:.18s var(--ease);flex:0 0 auto}
+.chip input:checked{background:var(--accent);border-color:var(--accent)}
+.chip input:checked::after{content:"";width:8px;height:4px;border-left:2px solid var(--accent-ink);border-bottom:2px solid var(--accent-ink);
+  transform:rotate(-45deg) translate(1px,-1px)}
+.chip .cnt{margin-left:auto;font-family:var(--f-mono);font-size:.66rem;color:var(--text-3)}
+.chip.off{opacity:.4}
+.price-range{display:flex;gap:.5rem;align-items:center;margin-top:.3rem}
+.price-range input{width:100%;padding:.5rem .6rem;border-radius:9px;border:1px solid var(--line-2);background:var(--surface);
+  font-family:var(--f-mono);font-size:.8rem;outline:none}
+.price-range input:focus{border-color:var(--accent)}
+.price-range span{color:var(--text-3)}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between;margin-bottom:1.3rem}
+.count{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.count b{color:var(--accent);font-weight:600}
+.sortsel{display:flex;align-items:center;gap:.5rem;border:1px solid var(--line-2);border-radius:99px;padding:.15rem .2rem .15rem .9rem;background:var(--surface)}
+.sortsel label{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.sortsel select{background:transparent;border:0;outline:none;padding:.5rem .4rem;font-size:.85rem;cursor:pointer}
+.sortsel option{background:var(--surface)}
+.active-filters{display:flex;flex-wrap:wrap;gap:.4rem}
+.pill{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line-2);border-radius:99px;
+  padding:.32rem .7rem;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);
+  background:var(--surface);cursor:pointer;transition:.2s var(--ease)}
+.pill:hover{border-color:var(--danger);color:var(--danger)}
+.empty{border:1px dashed var(--line-3);border-radius:var(--r-lg);padding:3rem 1.5rem;text-align:center;color:var(--text-3)}
+
+/* ---------- Página de produto ---------- */
+.pd-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(1.5rem,4vw,3.2rem);padding-block:2rem}
+.pd-media{border:1px solid var(--line);border-radius:var(--r-xl);background:var(--bg-elev);padding:1rem;position:sticky;top:96px;align-self:start}
+.pd-main{background:#fff;border-radius:var(--r-lg);display:grid;place-items:center;aspect-ratio:1/1;overflow:hidden}
+.pd-main img{max-height:100%;max-width:100%;object-fit:contain;padding:1rem}
+.pd-thumbs{display:flex;gap:.6rem;margin-top:.8rem;justify-content:center}
+.pd-thumbs div{width:58px;height:58px;border-radius:10px;border:1px solid var(--line-2);background:#fff;display:grid;place-items:center;opacity:.55}
+.pd-thumbs div.on{opacity:1;border-color:var(--accent)}
+.pd-thumbs img{width:100%;height:100%;object-fit:contain;padding:4px}
+.pd-title{font-size:clamp(1.5rem,3vw,2.35rem);letter-spacing:-.035em;margin-block:.6rem .8rem}
+.pd-sub .stock{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+.pd-sub{display:flex;flex-wrap:wrap;gap:1rem;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-3);padding-bottom:1.2rem;border-bottom:1px solid var(--line)}
+.pd-buy{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-end;padding-block:1.4rem}
+.pd-price{font-family:var(--f-mono);font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:600;letter-spacing:-.03em;line-height:1}
+.pd-price .cur{font-size:1rem;color:var(--text-3);margin-left:.2rem}
+.pd-price-old{font-family:var(--f-mono);font-size:.85rem;color:var(--text-3);text-decoration:line-through;margin-bottom:.3rem}
+.qty{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:99px;background:var(--surface);overflow:hidden}
+.qty button{width:40px;height:44px;border:0;background:transparent;cursor:pointer;color:var(--text-2);font-size:1.05rem;transition:.2s var(--ease)}
+.qty button:hover{color:var(--accent);background:var(--surface-2)}
+.qty input{width:44px;height:44px;text-align:center;border:0;background:transparent;outline:none;font-family:var(--f-mono);font-size:.95rem}
+.specs{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;margin-top:1.6rem}
+.specs-row{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:1rem;padding:.85rem 1.1rem;
+  border-bottom:1px solid var(--line);font-size:.9rem}
+.specs-row:last-child{border-bottom:0}
+.specs-row:nth-child(odd){background:rgba(255,255,255,.015)}
+.specs-row .k{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);padding-top:.15rem}
+.tabs{display:flex;gap:.2rem;border-bottom:1px solid var(--line);margin-top:2.4rem;overflow-x:auto}
+.tabs button{border:0;background:transparent;padding:.85rem 1rem;cursor:pointer;color:var(--text-3);
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  border-bottom:2px solid transparent;transition:.2s var(--ease);white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--text);border-bottom-color:var(--accent)}
+.tabpanel{padding-block:1.6rem;color:var(--text-2);max-width:78ch}
+.tabpanel ul{display:grid;gap:.5rem;margin-top:.9rem}
+.tabpanel li{position:relative;padding-left:1.15rem}
+.tabpanel li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:99px;background:var(--accent)}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,140%);z-index:150;
+  border:1px solid var(--line-2);background:rgba(14,17,24,.96);backdrop-filter:blur(14px);
+  border-radius:99px;padding:.75rem 1.15rem;display:flex;align-items:center;gap:.7rem;
+  font-size:.875rem;box-shadow:var(--shadow-2);transition:transform .35s var(--ease)}
+.toast.show{transform:translate(-50%,0)}
+.toast svg{width:16px;height:16px;color:var(--accent)}
+
+/* ---------- Reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  *{animation:none!important;scroll-behavior:auto!important}
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width:1080px){
+  .hero-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cta{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .nav{position:fixed;inset:0 0 0 auto;width:min(84vw,340px);flex-direction:column;align-items:stretch;
+    background:var(--bg-elev);border-left:1px solid var(--line-2);padding:5rem 1.2rem 2rem;margin:0;
+    transform:translateX(100%);transition:transform .35s var(--ease);z-index:90;overflow:auto}
+  .nav.open{transform:none}
+  .nav a{padding:.9rem .8rem;font-size:1rem;border-bottom:1px solid var(--line)}
+  .burger{display:grid}
+  .cat-layout{grid-template-columns:1fr}
+  .filters{position:static;max-height:none}
+  .pd-layout{grid-template-columns:1fr}
+  .pd-media{position:static}
+}
+@media (max-width:620px){
+  .topbar .wrap{justify-content:center}
+  .topbar-item.hide-sm{display:none}
+  .foot-grid{grid-template-columns:1fr}
+  .pcard{width:230px}
+  .hero-stats{gap:1.2rem}
+  .head-row{min-height:64px;gap:.6rem}
+  .logo-sub{display:none}
+}
+
+/* ==========================================================================
+   CAMADA "BEAUTIFY" — polish extra, 100% CSS
+   ========================================================================== */
+
+/* Aurora lenta por trás da grelha */
+.bg-aurora{position:fixed;inset:-22%;z-index:-1;pointer-events:none;filter:blur(70px);
+  background:
+    radial-gradient(38% 30% at 78% 10%, rgba(0,140,255,.14), transparent 62%),
+    radial-gradient(30% 26% at 10% 6%, rgba(96,140,255,.09), transparent 60%),
+    radial-gradient(26% 22% at 62% 86%, rgba(0,140,255,.05), transparent 60%);
+  animation:aurora 26s ease-in-out infinite alternate}
+@keyframes aurora{from{transform:translate3d(-2%,-1.5%,0) scale(1)}to{transform:translate3d(2.5%,2%,0) scale(1.07)}}
+
+/* Grão fino (ruído) para textura premium */
+.bg-noise{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.035;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Barra de progresso de scroll */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:120;pointer-events:none}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  box-shadow:0 0 12px rgba(0,140,255,.6)}
+
+/* Ticker / marquee */
+.ticker{border-block:1px solid var(--line);overflow:hidden;background:rgba(255,255,255,.012)}
+.ticker-track{display:flex;align-items:center;gap:2.6rem;width:max-content;padding:.7rem 0;
+  animation:tick 38s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track span{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--text-3);white-space:nowrap}
+.ticker-track b{color:var(--accent);font-weight:500}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* Título hero com gradiente no destaque */
+.hero h1 em{background:linear-gradient(93deg,#F4FAFF 0%,var(--accent) 55%,var(--accent-2) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 em::after{height:.07em;bottom:-.04em;background:linear-gradient(90deg,var(--accent),transparent 85%)}
+
+/* Números das stats com brilho */
+.stat .n{background:linear-gradient(180deg,#fff, #c9d2dd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .n b{background:linear-gradient(180deg,var(--accent-2),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Botão primário com glow + highlight interno */
+.btn-primary{box-shadow:0 12px 34px -14px rgba(0,140,255,.55), inset 0 1px 0 rgba(255,255,255,.4)}
+.btn-primary:hover{box-shadow:0 18px 44px -14px rgba(0,140,255,.7), inset 0 1px 0 rgba(255,255,255,.45)}
+
+/* Cartão de produto: brilho cónico na borda + sheen na imagem */
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+.pcard::before{content:"";position:absolute;inset:-1px;border-radius:calc(var(--r-lg) + 1px);padding:1px;pointer-events:none;
+  background:conic-gradient(from var(--ang),transparent 0 34%,rgba(0,140,255,.55) 50%,transparent 66% 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s var(--ease)}
+.pcard:hover::before{opacity:1;animation:angspin 3.2s linear infinite}
+@keyframes angspin{to{--ang:360deg}}
+.pcard-media::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.55) 50%,transparent 58%);
+  transform:translateX(-130%);transition:transform .9s var(--ease)}
+.pcard:hover .pcard-media::after{transform:translateX(130%)}
+
+/* Serviços: ícone com anel animado */
+.svc-ico{position:relative}
+.svc-ico::after{content:"";position:absolute;inset:-5px;border-radius:17px;border:1px solid transparent;
+  background:conic-gradient(from 0deg,transparent 0 70%,rgba(0,140,255,.8) 85%,transparent 100%) border-box;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s var(--ease)}
+.svc-card:hover .svc-ico::after{opacity:1;animation:angspin 2.6s linear infinite}
+
+/* Linhas de separação com brilho central */
+.glowline{height:1px;border:0;background:linear-gradient(90deg,transparent,var(--line-3) 20%,var(--accent) 50%,var(--line-3) 80%,transparent)}
+
+/* Stagger do reveal nas rails/grelhas */
+.rail>.reveal:nth-child(2),.grid>.reveal:nth-child(2){transition-delay:.06s}
+.rail>.reveal:nth-child(3),.grid>.reveal:nth-child(3){transition-delay:.12s}
+.rail>.reveal:nth-child(4),.grid>.reveal:nth-child(4){transition-delay:.18s}
+.rail>.reveal:nth-child(5),.grid>.reveal:nth-child(5){transition-delay:.24s}
+
+/* Seleção com glow */
+::selection{box-shadow:0 0 0 2px rgba(0,140,255,.35)}
+
+/* Logo: pulso sutil no mark */
+.logo-mark svg path:nth-child(2){animation:pulse 5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+
+@media (prefers-reduced-motion:reduce){
+  .bg-aurora,.ticker-track,.pcard:hover::before,.svc-card:hover .svc-ico::after,.logo-mark svg path:nth-child(2){animation:none!important}
+}
+
+
+/* ==========================================================================
+   LOGO PCZONE — "O TEU PC, SEM LIMITES"
+   ========================================================================== */
+.logo-pz{position:relative;display:block;width:224px;height:58px;flex:0 0 auto}
+.logo-pz .pz{position:absolute;top:1px;left:0;transform:scale(.40);transform-origin:top left;
+  display:flex;align-items:center;gap:25px}
+.pc-icon{width:150px;height:150px;position:relative;transform:skewY(-8deg)}
+.pc-case{width:105px;height:125px;position:absolute;right:0;bottom:5px;border:5px solid #087cff;
+  background:linear-gradient(145deg,#ffffff 0%,#bfc9d8 35%,#101827 36%,#06101f 100%);
+  clip-path:polygon(18% 0,100% 15%,100% 100%,15% 86%,0 70%,0 15%);
+  box-shadow:0 0 15px #006eff,0 0 35px rgba(0,110,255,.5)}
+.fan{position:absolute;width:45px;height:45px;right:17px;top:32px;border:5px solid #008cff;
+  border-radius:50%;box-shadow:0 0 15px #008cff}
+.fan::before,.fan::after{content:"";position:absolute;inset:8px;border-radius:50%;border:3px solid #fff}
+.fan::after{inset:18px;background:#008cff;border:none}
+.brand{display:block;text-align:left}
+.brand-name{display:block;font-family:Arial,Helvetica,sans-serif;font-size:90px;font-weight:1000;
+  font-style:italic;letter-spacing:-6px;line-height:.85;
+  background:linear-gradient(180deg,#ffffff 0%,#ffffff 38%,#008cff 40%,#005bea 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:3px 3px 0 #003d9c,0 0 15px rgba(0,110,255,.5)}
+.line{display:block;height:3px;background:#008cff;box-shadow:0 0 8px #008cff;margin:18px 0 10px}
+.slogan{display:block;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;
+  letter-spacing:6px;text-align:center}
+/* pulso de energia na caixa do PC */
+.pc-case{animation:pzpulse 4.5s ease-in-out infinite}
+@keyframes pzpulse{0%,100%{box-shadow:0 0 15px #006eff,0 0 35px rgba(0,110,255,.5)}50%{box-shadow:0 0 22px #006eff,0 0 55px rgba(0,110,255,.75)}}
+@media (max-width:620px){
+  .logo-pz{width:158px;height:42px}
+  .logo-pz .pz{transform:scale(.28)}
+}
+@media (prefers-reduced-motion:reduce){.pc-case{animation:none}}
+
+/* ==========================================================================
+   AUTENTICAÇÃO — "Entre na sua conta"
+   ========================================================================== */
+.auth{max-width:560px;margin-inline:auto;padding-block:clamp(2rem,5vw,3.5rem) var(--section)}
+.auth-card{padding:clamp(1.6rem,4vw,2.6rem);position:relative;overflow:hidden}
+.auth-card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+.auth-card h1{font-size:var(--fs-h2);margin-top:.8rem}
+.auth-sub{color:var(--text-3);font-size:.9rem;margin-top:.5rem}
+.field{margin-top:1.3rem}
+.field label{display:block;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--text-3)}
+.field .in{position:relative;margin-top:.55rem}
+.field input{width:100%;padding:.95rem 1.05rem;border-radius:var(--r-md);border:1px solid var(--line-2);
+  background:var(--bg);color:var(--text);outline:none;transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+.field input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.field input::placeholder{color:var(--text-3)}
+.field .in.has-eye input{padding-right:3rem}
+.eye{position:absolute;right:.55rem;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;
+  background:transparent;color:var(--text-3);cursor:pointer;display:grid;place-items:center;border-radius:9px;
+  transition:color .2s var(--ease),background .2s var(--ease)}
+.eye:hover{color:var(--accent);background:var(--surface-2)}
+.eye svg{width:17px;height:17px}
+.auth-row{display:flex;justify-content:flex-end;margin-top:.9rem}
+.auth-row a{font-size:.82rem;color:var(--text-2);transition:color .2s var(--ease)}
+.auth-row a:hover{color:var(--accent)}
+.auth .btn-primary{width:100%;margin-top:1.5rem;padding-block:1rem}
+.auth-alt{margin-top:1.5rem;padding-top:1.3rem;border-top:1px solid var(--line);text-align:center;
+  color:var(--text-3);font-size:.9rem}
+.auth-alt a{color:var(--accent);font-weight:600}
+.auth-alt a:hover{text-decoration:underline}
+.auth-msg{min-height:1.2em;margin-top:.9rem;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em}
+.auth-msg.err{color:var(--danger)}
+.auth-msg.ok{color:var(--ok)}
+.auth-perks{display:grid;gap:.55rem;margin-top:1.6rem}
+.auth-perks li{display:flex;gap:.6rem;align-items:center;color:var(--text-3);font-size:.82rem}
+.auth-perks svg{width:14px;height:14px;color:var(--accent);flex:0 0 auto}
+
+#view{min-height:64vh}
+</style>
+</head>
+<body>
+<a class="skip" href="#view">Saltar para o conteúdo</a>
+<div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+<div class="bg-field" aria-hidden="true"></div>
+<div class="bg-aurora" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-noise" aria-hidden="true"></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="topbar-item"
+          data-i18n-pt="Entrega <b>grátis</b> acima de 150 € · Loja online oficial"
+          data-i18n-en="<b>Free</b> delivery over €150 · Official online store"
+          data-i18n-html="1"></span>
+    <span class="topbar-item hide-sm">
+      <span data-i18n-pt="Apoio:" data-i18n-en="Support:"></span>
+      <b>+351 234 340 871</b>
+    </span>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="logo-pz" href="#/" aria-label="PCZONE — O teu PC, sem limites">
+      <span class="pz" aria-hidden="true">
+        <span class="pc-icon"><span class="pc-case"><span class="fan"></span></span></span>
+        <span class="brand">
+          <span class="brand-name">PCZONE</span>
+          <span class="line"></span>
+          <span class="slogan">O TEU PC, SEM LIMITES</span>
+        </span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#/c/desktops-gaming" data-i18n-pt="Gaming" data-i18n-en="Gaming">Gaming</a>
+      <a href="#/c/portateis-empresariais" data-i18n-pt="Portáteis" data-i18n-en="Laptops">Portáteis</a>
+      <a href="#/c/placas-graficas-internas" data-i18n-pt="Componentes" data-i18n-en="Components">Componentes</a>
+      <a href="#/c/monitores-lcd" data-i18n-pt="Monitores" data-i18n-en="Monitors">Monitores</a>
+      <a href="#/c/caixas-de-computador" data-i18n-pt="Caixas" data-i18n-en="Cases">Caixas</a>
+      <a href="#/c/tablets-standard" data-i18n-pt="Mobilidade" data-i18n-en="Mobile">Mobilidade</a>
+      <a href="#servicos" data-i18n-pt="Serviços" data-i18n-en="Services">Serviços</a>
+    </nav>
+
+    <div class="head-actions">
+      <button class="icon-btn" type="button" data-toggle="search"
+              aria-label="Procurar" data-i18n-attr="aria-label:search_ph">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+      </button>
+      <a class="icon-btn" href="#/conta"
+         aria-label="Conta" data-i18n-attr="aria-label:account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="8" r="3.6"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/></svg>
+      </a>
+      <button class="icon-btn" type="button" aria-label="Carrinho">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 4h2.2l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.3a1.6 1.6 0 0 0 1.6-1.2L21 8H6"/>
+          <circle cx="10" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/></svg>
+        <span class="badge cart-count" style="display:none">0</span>
+      </button>
+      <button class="icon-btn burger" type="button" data-toggle="nav" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+          <path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="searchbar" data-close="search">
+    <div class="wrap" onclick="event.stopPropagation()">
+      <label class="search-input">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--text-3)">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input type="search" placeholder="Procurar produtos, marcas, referências…"
+               data-i18n-attr="placeholder:search_ph" autocomplete="off">
+        <kbd>/</kbd>
+      </label>
+      <button class="btn btn-quiet btn-sm" type="button" data-close="search">Esc</button>
+      <div class="search-hits" style="grid-column:1/-1"></div>
+    </div>
+  </div>
+</header>
+
+
+<main id="view"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a class="logo-pz" href="#/" aria-label="PCZONE — O teu PC, sem limites">
+      <span class="pz" aria-hidden="true">
+        <span class="pc-icon"><span class="pc-case"><span class="fan"></span></span></span>
+        <span class="brand">
+          <span class="brand-name">PCZONE</span>
+          <span class="line"></span>
+          <span class="slogan">O TEU PC, SEM LIMITES</span>
+        </span>
+      </span>
+    </a>
+        <p data-i18n-pt="PCZONE — O teu PC, sem limites. Desktops gaming, componentes, monitores e assistência técnica especializada."
+           data-i18n-en="PCZONE — your PC, without limits. Gaming desktops, components, monitors and specialist technical support.">
+          PCZONE — O teu PC, sem limites. Desktops gaming, componentes, monitores e assistência técnica especializada.</p>
+        <div class="contact-list">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            Rua de Santa Rita, 85 · 3810-167 Aveiro</span>
+          <a href="tel:+351234340871"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h3l2 5-2.4 1.6a12 12 0 0 0 5.8 5.8L16 13l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3Z"/></svg>
+            +351 234 340 871</a>
+          <a href="/cdn-cgi/l/email-protection#e18d8e8b80cf8e8f8d888f84a1848d8895848588868895808dcf9195"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
+            <span class="__cf_email__" data-cfemail="cea2a1a4afe0a1a0a2a7a0ab8eaba2a7baabaaa7a9a7baafa2e0beba">[email&#160;protected]</span></a>
+        </div>
+      </div>
+
+      <div>
+        <h4 data-i18n-pt="Comprar" data-i18n-en="Shop">Comprar</h4>
+        <ul>
+          <li><a href="#/c/desktops-gaming" data-i18n-pt="Desktops Gaming" data-i18n-en="Gaming Desktops">Desktops Gaming</a></li>
+          <li><a href="#/c/portateis-empresariais" data-i18n-pt="Portáteis" data-i18n-en="Laptops">Portáteis</a></li>
+          <li><a href="#/c/placas-graficas-internas" data-i18n-pt="Placas Gráficas" data-i18n-en="Graphics Cards">Placas Gráficas</a></li>
+          <li><a href="#/c/monitores-lcd" data-i18n-pt="Monitores" data-i18n-en="Monitors">Monitores</a></li>
+          <li><a href="#/c/tablets-standard" data-i18n-pt="Tablets" data-i18n-en="Tablets">Tablets</a></li>
+          <li><a href="#/c" data-i18n-pt="Todos os produtos" data-i18n-en="All products">Todos os produtos</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n-pt="Serviços" data-i18n-en="Services">Serviços</h4>
+        <ul>
+          <li><a href="#servicos" data-i18n-pt="Assistência técnica" data-i18n-en="Technical support">Assistência técnica</a></li>
+          <li><a href="#servicos" data-i18n-pt="Reparação e manutenção" data-i18n-en="Repair & maintenance">Reparação e manutenção</a></li>
+          <li><a href="#servicos" data-i18n-pt="Ecrãs e baterias" data-i18n-en="Screens & batteries">Ecrãs e baterias</a></li>
+          <li><a href="#servicos" data-i18n-pt="Assistência remota" data-i18n-en="Remote assistance">Assistência remota</a></li>
+          <li><a href="#servicos" data-i18n-pt="Seguros e garantias" data-i18n-en="Insurance & warranty">Seguros e garantias</a></li>
+          <li><a href="#servicos" data-i18n-pt="Configurações" data-i18n-en="Custom builds">Configurações</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n-pt="Apoio" data-i18n-en="Support">Apoio</h4>
+        <ul>
+          <li><a href="https://www.elitedigital.pt/contacte-nos" data-i18n-pt="Contacte-nos" data-i18n-en="Contact us">Contacte-nos</a></li>
+          <li><a href="https://www.elitedigital.pt/" data-i18n-pt="Entregas e devoluções" data-i18n-en="Shipping & returns">Entregas e devoluções</a></li>
+          <li><a href="https://www.elitedigital.pt/" data-i18n-pt="Condições gerais de venda" data-i18n-en="Terms of sale">Condições gerais de venda</a></li>
+          <li><a href="https://www.elitedigital.pt/" data-i18n-pt="Livro de reclamações" data-i18n-en="Complaints book">Livro de reclamações</a></li>
+          <li><a href="https://www.elitedigital.pt/" data-i18n-pt="Rede de lojas" data-i18n-en="Store network">Rede de lojas</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n-pt="Loja online" data-i18n-en="Online store">Loja online</h4>
+        <ul>
+          <li><a href="https://www.elitedigital.pt/img/cms/folhetos/folheto_26.pdf" data-i18n-pt="Folheto de campanhas" data-i18n-en="Campaign leaflet">Folheto de campanhas</a></li>
+          <li><a href="https://www.elitedigital.pt/top-vendas" data-i18n-pt="Top de vendas" data-i18n-en="Best sellers">Top de vendas</a></li>
+          <li><a href="https://www.elitedigital.pt/" data-i18n-pt="Novidades" data-i18n-en="New arrivals">Novidades</a></li>
+          <li><a href="https://www.elitedigital.pt/" data-i18n-pt="Franchising" data-i18n-en="Franchising">Franchising</a></li>
+          <li><a href="https://www.elitedigital.pt/" data-i18n-pt="Escola Digital" data-i18n-en="Digital School">Escola Digital</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> PCZONE · <span data-i18n-pt="PROTÓTIPO DE DESIGN" data-i18n-en="DESIGN PROTOTYPE">PROTÓTIPO DE DESIGN</span></span>
+      <span class="pays">
+        <span>VISA</span><span>MASTERCARD</span><span>MB WAY</span><span>MULTIBANCO</span><span>COFIDIS</span>
+      </span>
+      <span>PT · EN · EUR €</span>
+    </div>
+  </div>
+</footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());</script>
+
+
+<script>
+/* Gerado automaticamente a partir de dados reais de elitedigital.pt */
+window.ED_DATA = {"products":[{"id":"363940","name":"Computador Gaming INSYS PbA, i7-12700F, RTX3060, 16GB RAM, SSD 512GB, W11","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/7803705-home_default/computador-gaming-insys-pba-i7-12700f-rtx3060-16gb-ram-ssd-512gb-w11.jpg","url":"https://www.elitedigital.pt/desktops-gaming/363940-computador-gaming-insys-pba-i7-12700f-rtx3060-16gb-ram-ssd-512gb-w11-5604008017616.html","price":"1 312,52 €","val":1312.52,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"353782","name":"PC Gaming INSYS i5 GTX1660S 16GB 512GB SSD Windows 10","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/4457005-home_default/pc-gaming-insys-i5-gtx1660s-16gb-512gb-ssd-windows-10.jpg","url":"https://www.elitedigital.pt/desktops-gaming/353782-pc-gaming-insys-i5-gtx1660s-16gb-512gb-ssd-windows-10-5604008014585.html","price":"847,50 €","val":847.5,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"242299","name":"PC Gaming INSYS i5-12400F GTX1650 16GB 512GB NVMe W11","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/4429867-home_default/pc-gaming-insys-i5-12400f-gtx1650-16gb-512gb-nvme-w11.jpg","url":"https://www.elitedigital.pt/desktops-gaming/242299-pc-gaming-insys-i5-12400f-gtx1650-16gb-512gb-nvme-w11-5604008017999.html","price":"739,42 €","val":739.42,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"242322","name":"Computador Gaming INSYS Pwrd by ASUS i7 RTX2060 16GB 512GB W11","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/7803706-home_default/computador-gaming-insys-pwrd-by-asus-i7-rtx2060-16gb-512gb-w11.jpg","url":"https://www.elitedigital.pt/desktops-gaming/242322-computador-gaming-insys-pwrd-by-asus-i7-rtx2060-16gb-512gb-w11-5604008014141.html","price":"698,99 €","val":698.99,"disc":"-302,53","novo":false,"esgotado":true,"reviews":0},{"id":"363939","name":"Computador Gaming INSYS PbA i5-12400F, RTX3060, 16GB RAM, 512GB SSD, Windows 11","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/7803696-home_default/computador-gaming-insys-pba-i5-12400f-rtx3060-16gb-ram-512gb-ssd-windows-11.jpg","url":"https://www.elitedigital.pt/desktops-gaming/363939-computador-gaming-insys-pba-i5-12400f-rtx3060-16gb-ram-512gb-ssd-windows-11-5604008018002.html","price":"598,99 €","val":598.99,"disc":"-582,53","novo":false,"esgotado":true,"reviews":0},{"id":"352669","name":"Computador INSYS .FORCE GAMER V1 - i3-12100F, GTX1650, 8GB RAM, SSD 512GB","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/3935282-home_default/computador-insys-force-gamer-v1-i3-12100f-gtx1650-8gb-ram-ssd-512gb.jpg","url":"https://www.elitedigital.pt/desktops-gaming/352669-computador-insys-force-gamer-v1-i3-12100f-gtx1650-8gb-ram-ssd-512gb.html","price":"449,00 €","val":449.0,"disc":"-250,00","novo":false,"esgotado":true,"reviews":0},{"id":"242305","name":"PC Gaming INSYS PbA i5-10400F GTX1660 8GB 512GB SSD W11","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/1429713-home_default/pc-gaming-insys-pba-i5-10400f-gtx1660-8gb-512gb-ssd-w11.jpg","url":"https://www.elitedigital.pt/desktops-gaming/242305-pc-gaming-insys-pba-i5-10400f-gtx1660-8gb-512gb-ssd-w11-5604008012857.html","price":"548,99 €","val":548.99,"disc":"-552,53","novo":false,"esgotado":true,"reviews":0},{"id":"363938","name":"PC Gaming INSYS Pwrd by ASUS i5 GTX1660S 16GB 512GB SSD Linux","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/7803695-home_default/pc-gaming-insys-pwrd-by-asus-i5-gtx1660s-16gb-512gb-ssd-linux.jpg","url":"https://www.elitedigital.pt/desktops-gaming/363938-pc-gaming-insys-pwrd-by-asus-i5-gtx1660s-16gb-512gb-ssd-linux-5604008017241.html","price":"549,00 €","val":549.0,"disc":"-332,52","novo":false,"esgotado":false,"reviews":0},{"id":"363913","name":"Computador Gaming INSYS i5-11400 RTX2060 16GB 512GB SSD Windows 11","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/7801568-home_default/computador-gaming-insys-i5-11400-rtx2060-16gb-512gb-ssd-windows-11.jpg","url":"https://www.elitedigital.pt/desktops-gaming/363913-computador-gaming-insys-i5-11400-rtx2060-16gb-512gb-ssd-windows-11-5604008012468.html","price":"958,22 €","val":958.22,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"242295","name":"Computador Gaming INSYS Pwrd by ASUS i5-11400F RTX2060 16GB 512GB SSD","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/7801572-home_default/computador-gaming-insys-pwrd-by-asus-i5-11400f-rtx2060-16gb-512gb-ssd.jpg","url":"https://www.elitedigital.pt/desktops-gaming/242295-computador-gaming-insys-pwrd-by-asus-i5-11400f-rtx2060-16gb-512gb-ssd-5604008014530.html","price":"549,00 €","val":549.0,"disc":"-52,52","novo":false,"esgotado":true,"reviews":0},{"id":"242327","name":"PC Gaming INSYS ASUS GTX1660S R5-3600 16GB 512GB SSD, Windows","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/1429722-home_default/pc-gaming-insys-asus-gtx1660s-r5-3600-16gb-512gb-ssd-windows.jpg","url":"https://www.elitedigital.pt/desktops-gaming/242327-pc-gaming-insys-asus-gtx1660s-r5-3600-16gb-512gb-ssd-windows-5604008012888.html","price":"448,99 €","val":448.99,"disc":"-552,53","novo":false,"esgotado":true,"reviews":0},{"id":"363944","name":"PC Gaming INSYS PbA R5-5600X, GTX1660S, 16GB RAM, SSD 512GB - Ubuntu","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/7803725-home_default/pc-gaming-insys-pba-r5-5600x-gtx1660s-16gb-ram-ssd-512gb-ubuntu.jpg","url":"https://www.elitedigital.pt/desktops-gaming/363944-pc-gaming-insys-pba-r5-5600x-gtx1660s-16gb-ram-ssd-512gb-ubuntu-5604008017166.html","price":"648,99 €","val":648.99,"disc":"-552,53","novo":false,"esgotado":true,"reviews":0},{"id":"348498","name":"Desktop INSYS PowerPlay R7-8700G 16GB 1TB SSD - Gaming PC","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/2616942-home_default/desktop-insys-powerplay-r7-8700g-16gb-1tb-ssd-gaming-pc.jpg","url":"https://www.elitedigital.pt/desktops-gaming/348498-desktop-insys-powerplay-r7-8700g-16gb-1tb-ssd-gaming-pc.html","price":"704,03 €","val":704.03,"disc":"-294,97","novo":false,"esgotado":false,"reviews":0},{"id":"365551","name":"Computador Gaming INSYS .FORCE GAMER V1 i3-12100F, 16GB RAM, 1TB SSD, RTX3050","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/9233357-home_default/computador-gaming-insys-force-gamer-v1-i3-12100f-16gb-ram-1tb-ssd-rtx3050.jpg","url":"https://www.elitedigital.pt/desktops-gaming/365551-computador-gaming-insys-force-gamer-v1-i3-12100f-16gb-ram-1tb-ssd-rtx3050-5604008018767.html","price":"863,93 €","val":863.93,"disc":"-175,02","novo":false,"esgotado":false,"reviews":0},{"id":"364858","name":"Computador Gaming INSYS PbA, i7-12700F, RTX4060, 16GB RAM, SSD 512GB, W11, Wifi","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/8015709-home_default/computador-gaming-insys-pba-i7-12700f-rtx4060-16gb-ram-ssd-512gb-w11-wifi.jpg","url":"https://www.elitedigital.pt/desktops-gaming/364858-computador-gaming-insys-pba-i7-12700f-rtx4060-16gb-ram-ssd-512gb-w11-wifi.html","price":"999,47 €","val":999.47,"disc":"-100,00","novo":false,"esgotado":true,"reviews":0},{"id":"224208","name":"Desktop INSYS PowerPlay R5-5600G | 16GB RAM | 512GB SSD | Win 11 Home","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/1243817-home_default/desktop-insys-powerplay-r5-5600g-16gb-ram-512gb-ssd-win-11-home.jpg","url":"https://www.elitedigital.pt/desktops-gaming/224208-desktop-insys-powerplay-r5-5600g-16gb-ram-512gb-ssd-win-11-home.html","price":"499,00 €","val":499.0,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"244772","name":"PC Gaming INSYS .FORCE GAMER PRO i7-14700KF, RTX 4080S, 32GB RAM, 1TB SSD","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/2772499-home_default/pc-gaming-insys-force-gamer-pro-i7-14700kf-rtx-4080s-32gb-ram-1tb-ssd.jpg","url":"https://www.elitedigital.pt/desktops-gaming/244772-pc-gaming-insys-force-gamer-pro-i7-14700kf-rtx-4080s-32gb-ram-1tb-ssd.html","price":"3 249,00 €","val":3249.0,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"228662","name":"Computador Gaming INSYS .FORCE GAMER PRO i7-13700KF, RTX 4060Ti, 16GB RAM, 1TB NVMe","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/1377029-home_default/computador-gaming-insys-force-gamer-pro-i7-13700kf-rtx-4060ti-16gb-ram-1tb-nvme.jpg","url":"https://www.elitedigital.pt/desktops-gaming/228662-computador-gaming-insys-force-gamer-pro-i7-13700kf-rtx-4060ti-16gb-ram-1tb-nvme.html","price":"1 949,00 €","val":1949.0,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"366923","name":"Comp. INSYS .FORCE Gamer R5-5500 16GB 500GB RTX5060 W11P","cat":"desktops-gaming","brand":"INSYS","img":"https://www.elitedigital.pt/11409067-home_default/comp-insys-force-gamer-r5-5500-16gb-500gb-rtx5060-w11p.jpg","url":"https://www.elitedigital.pt/desktops-gaming/366923-comp-insys-force-gamer-r5-5500-16gb-500gb-rtx5060-w11p.html","price":"898,99 €","val":898.99,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"347458","name":"Portátil Dell Inspiron 3520 i5-1235U 15.6\" FHD 8GB 512GB SSD, Windows 11 Pro","cat":"portateis-empresariais","brand":"Dell","img":"https://www.elitedigital.pt/2241953-home_default/portatil-dell-inspiron-3520-i5-1235u-156-fhd-8gb-512gb-ssd-windows-11-pro.jpg","url":"https://www.elitedigital.pt/portateis-empresariais/347458-portatil-dell-inspiron-3520-i5-1235u-156-fhd-8gb-512gb-ssd-windows-11-pro-5397184902110.html","price":"661,37 €","val":661.37,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"366919","name":"Portátil INSYS PR6-15R5 15.6p Ryzen 5 7430U 8GB RAM 256GB SSD Windows 11 Pro","cat":"portateis-empresariais","brand":"INSYS","img":"https://www.elitedigital.pt/11442748-home_default/portatil-insys-pr6-15r5-156p-ryzen-5-7430u-8gb-ram-256gb-ssd-windows-11-pro.jpg","url":"https://www.elitedigital.pt/portateis-empresariais/366919-portatil-insys-pr6-15r5-156p-ryzen-5-7430u-8gb-ram-256gb-ssd-windows-11-pro-5604008005071.html","price":"599,00 €","val":599.0,"disc":"-40,00","novo":false,"esgotado":true,"reviews":0},{"id":"366929","name":"Portatil INSYS PR6-15R5 15,6p R5-7430U | 16GB | SSD 500GB | Windows 11 Profissional","cat":"portateis-empresariais","brand":"INSYS","img":"https://www.elitedigital.pt/11444183-home_default/portatil-insys-pr6-15r5-156p-r5-7430u-16gb-ssd-500gb-windows-11-profissional.jpg","url":"https://www.elitedigital.pt/portateis-empresariais/366929-portatil-insys-pr6-15r5-156p-r5-7430u-16gb-ssd-500gb-windows-11-profissional-5604008005026.html","price":"677,80 €","val":677.8,"disc":"-38,12","novo":false,"esgotado":true,"reviews":0},{"id":"355565","name":"Portátil INSYS CV5-V650AU 15.6\" Core i5, 16GB RAM, 512GB SSD, Win 11 Pro e Thunderbolt 4","cat":"portateis-empresariais","brand":"INSYS","img":"https://www.elitedigital.pt/7317112-home_default/portatil-insys-cv5-v650au-156-core-i5-16gb-ram-512gb-ssd-win-11-pro-e-thunderbolt-4.jpg","url":"https://www.elitedigital.pt/portateis-empresariais/355565-portatil-insys-cv5-v650au-156-core-i5-16gb-ram-512gb-ssd-win-11-pro-e-thunderbolt-4-5604008019641.html","price":"699,00 €","val":699.0,"disc":"-97,02","novo":false,"esgotado":true,"reviews":0},{"id":"347622","name":"Portátil INSYS 14p WHA-14P2, i3-5005U, 8GB RAM, SSD 256GB e Windows 10 Pro (Usado)","cat":"portateis-empresariais","brand":"INSYS","img":"https://www.elitedigital.pt/2300915-home_default/portatil-insys-14p-wha-14p2-i3-5005u-8gb-ram-ssd-256gb-e-windows-10-pro-usado.jpg","url":"https://www.elitedigital.pt/portateis-empresariais/347622-portatil-insys-14p-wha-14p2-i3-5005u-8gb-ram-ssd-256gb-e-windows-10-pro-usado.html","price":"135,61 €","val":135.61,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"369371","name":"Portátil Lenovo 15.6p V15 G5 IRL i5-13420H |16GB|512GB|W11P","cat":"portateis-empresariais","brand":"Lenovo","img":"https://www.elitedigital.pt/12062337-home_default/portatil-lenovo-156p-v15-g5-irl-i5-13420h-16gb512gbw11p.jpg","url":"https://www.elitedigital.pt/portateis-empresariais/369371-portatil-lenovo-156p-v15-g5-irl-i5-13420h-16gb512gbw11p.html","price":"1 221,55 €","val":1221.55,"disc":null,"novo":true,"esgotado":true,"reviews":0},{"id":"369365","name":"Portátil Lenovo 15.6p V15 G5 IRL i5-13420H |8GB|512GB|W11P","cat":"portateis-empresariais","brand":"Lenovo","img":"https://www.elitedigital.pt/12062296-home_default/portatil-lenovo-156p-v15-g5-irl-i5-13420h-8gb512gbw11p.jpg","url":"https://www.elitedigital.pt/portateis-empresariais/369365-portatil-lenovo-156p-v15-g5-irl-i5-13420h-8gb512gbw11p-199271994726.html","price":"969,73 €","val":969.73,"disc":null,"novo":true,"esgotado":false,"reviews":0},{"id":"347629","name":"Portátil Dell Inspiron 3520: i7, 16GB RAM, 512GB SSD, 15.6\" FHD","cat":"portateis-standard","brand":"Dell","img":"https://www.elitedigital.pt/2300990-home_default/portatil-dell-inspiron-3520-i7-16gb-ram-512gb-ssd-156-fhd.jpg","url":"https://www.elitedigital.pt/portateis-standard/347629-portatil-dell-inspiron-3520-i7-16gb-ram-512gb-ssd-156-fhd-5397184902301.html","price":"699,00 €","val":699.0,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"214700","name":"Portátil INSYS CV3-NJ50PU 15.6p i3-1215U, 8GB RAM, SSD 512GB, Win11","cat":"portateis-standard","brand":"INSYS","img":"https://www.elitedigital.pt/1410174-home_default/portatil-insys-cv3-nj50pu-156p-i3-1215u-8gb-ram-ssd-512gb-win11.jpg","url":"https://www.elitedigital.pt/portateis-standard/214700-portatil-insys-cv3-nj50pu-156p-i3-1215u-8gb-ram-ssd-512gb-win11-5604008018064.html","price":"632,21 €","val":632.21,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"156447","name":"Portátil INSYS PT1-140CH 14p i3-10110U, 8GB RAM, 256GB SSD, Windows 11","cat":"portateis-standard","brand":"INSYS","img":"https://www.elitedigital.pt/737054-home_default/portatil-insys-pt1-140ch-14p-i3-10110u-8gb-ram-256gb-ssd-windows-11.jpg","url":"https://www.elitedigital.pt/portateis-standard/156447-portatil-insys-pt1-140ch-14p-i3-10110u-8gb-ram-256gb-ssd-windows-11-5604008018446.html","price":"299,01 €","val":299.01,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"26426","name":"Portátil INSYS PR1-M146 14p Pentium N4200 8GB RAM 128GB SSD Linux Ubuntu","cat":"portateis-standard","brand":"INSYS","img":"https://www.elitedigital.pt/432151-home_default/portatil-insys-pr1-m146-14p-pentium-n4200-8gb-ram-128gb-ssd-linux-ubuntu.jpg","url":"https://www.elitedigital.pt/portateis-standard/26426-portatil-insys-pr1-m146-14p-pentium-n4200-8gb-ram-128gb-ssd-linux-ubuntu-5604008010761.html","price":"189,63 €","val":189.63,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"348499","name":"Portátil INSYS NUC M15, i7-1260P, 16GB RAM, 1TB SSD, Touchscreen, Windows 11","cat":"portateis-standard","brand":"INSYS","img":"https://www.elitedigital.pt/2616950-home_default/portatil-insys-nuc-m15-i7-1260p-16gb-ram-1tb-ssd-touchscreen-windows-11.jpg","url":"https://www.elitedigital.pt/portateis-standard/348499-portatil-insys-nuc-m15-i7-1260p-16gb-ram-1tb-ssd-touchscreen-windows-11.html","price":"1 039,01 €","val":1039.01,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"351831","name":"Placa Gráfica MSI GT 1030 4GB GDDR4 LP OC - HDMI, DisplayPort, Silenciosa","cat":"placas-graficas-internas","brand":"MSI","img":"https://www.elitedigital.pt/3552490-home_default/placa-grafica-msi-gt-1030-4gb-gddr4-lp-oc-hdmi-displayport-silenciosa.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/351831-placa-grafica-msi-gt-1030-4gb-gddr4-lp-oc-hdmi-displayport-silenciosa-4711377211475.html","price":"129,00 €","val":129.0,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364165","name":"Asus - ROG-STRIX-RTX5070TI-O16G-GAMING","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/9160044-home_default/asus-rog-strix-rtx5070ti-o16g-gaming.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364165-asus-rog-strix-rtx5070ti-o16g-gaming-4711387920633.html","price":"1 393,39 €","val":1393.39,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364816","name":"Placa Gráfica Asus Dual RX 7900 GRE 16GB GDDR6 - PCIe 4.0, 2x Ventoinhas, 2366 MHz OC","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7992219-home_default/placa-grafica-asus-dual-rx-7900-gre-16gb-gddr6-pcie-40-2x-ventoinhas-2366-mhz-oc.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364816-placa-grafica-asus-dual-rx-7900-gre-16gb-gddr6-pcie-40-2x-ventoinhas-2366-mhz-oc-4711387548615.html","price":"809,64 €","val":809.64,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364872","name":"Placa Gráfica Zotac RTX 5060 Ti Twin Edge OC: 8GB GDDR7, 128-bit, 1 HDMI + 3 DP, 2","cat":"placas-graficas-internas","brand":"Outros","img":"https://www.elitedigital.pt/8024971-home_default/placa-grafica-zotac-rtx-5060-ti-twin-edge-oc-8gb-gddr7-128-bit-1-hdmi-3-dp-2-ventiladores-zt-b50610h-10m.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364872-placa-grafica-zotac-rtx-5060-ti-twin-edge-oc-8gb-gddr7-128-bit-1-hdmi-3-dp-2-ventiladores-zt-b50610h-10m-8886307700643.html","price":"522,07 €","val":522.07,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364104","name":"Placa Gráfica ASUS GeForce RTX 5060 Ti 8GB GDDR7, 2x Ventoinhas, HDMI e DisplayPort","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7809330-home_default/placa-grafica-asus-geforce-rtx-5060-ti-8gb-gddr7-2x-ventoinhas-hdmi-e-displayport.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364104-placa-grafica-asus-geforce-rtx-5060-ti-8gb-gddr7-2x-ventoinhas-hdmi-e-displayport-4711636014182.html","price":"624,69 €","val":624.69,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"366733","name":"Placa Gráfica PCIe 16GB Gigabyte RTX5060 Ti, WindForce MAX OC","cat":"placas-graficas-internas","brand":"Outros","img":"https://www.elitedigital.pt/9962936-home_default/placa-grafica-pcie-16gb-gigabyte-rtx5060-ti-windforce-max-oc.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/366733-placa-grafica-pcie-16gb-gigabyte-rtx5060-ti-windforce-max-oc-4719331356675.html","price":"609,88 €","val":609.88,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"258015","name":"Placa Gráfica Zotac RTX 4070 Twin Edge OC 12GB GDDR6X - Gaming, DLSS 3, DisplayPort e HDMI","cat":"placas-graficas-internas","brand":"Outros","img":"https://www.elitedigital.pt/1429425-home_default/placa-grafica-zotac-rtx-4070-twin-edge-oc-12gb-gddr6x-gaming-dlss-3-displayport-e-hdmi.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/258015-placa-grafica-zotac-rtx-4070-twin-edge-oc-12gb-gddr6x-gaming-dlss-3-displayport-e-hdmi-4895173626678.html","price":"718,58 €","val":718.58,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364817","name":"Placa Gráfica Asus Dual RTX 3060 Ti 8GB GDDR6 - PCI-e 4.0, 2x HDMI, 3x DP, G-SYNC","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7992231-home_default/placa-grafica-asus-dual-rtx-3060-ti-8gb-gddr6-pci-e-40-2x-hdmi-3x-dp-g-sync.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364817-placa-grafica-asus-dual-rtx-3060-ti-8gb-gddr6-pci-e-40-2x-hdmi-3x-dp-g-sync.html","price":"609,31 €","val":609.31,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"364840","name":"Placa Gráfica PCIe 8GB ASROCK Phantom Gaming RX 6500 XT 8GB","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7993981-home_default/placa-grafica-pcie-8gb-asrock-phantom-gaming-rx-6500-xt-8gb.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364840-placa-grafica-pcie-8gb-asrock-phantom-gaming-rx-6500-xt-8gb-4710483945151.html","price":"195,13 €","val":195.13,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"358749","name":"Placa Gráfica Zotac RTX 5060 Ti AMP 16GB GDDR7","cat":"placas-graficas-internas","brand":"Outros","img":"https://www.elitedigital.pt/7854104-home_default/placa-grafica-zotac-rtx-5060-ti-amp-16gb-gddr7.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/358749-placa-grafica-zotac-rtx-5060-ti-amp-16gb-gddr7-8886307700520.html","price":"672,13 €","val":672.13,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"275000","name":"Placa Gráfica AFOX GT 710 2GB DDR3, PCIe, HDMI, DVI e VGA","cat":"placas-graficas-internas","brand":"AFOX","img":"https://www.elitedigital.pt/1453309-home_default/placa-grafica-afox-gt-710-2gb-ddr3-pcie-hdmi-dvi-e-vga.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/275000-placa-grafica-afox-gt-710-2gb-ddr3-pcie-hdmi-dvi-e-vga.html","price":"50,06 €","val":50.06,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"258036","name":"Placa Gráfica MSI RTX 4090 VENTUS 3X E 24G OC, 24GB GDDR6X, 2550MHz Boost","cat":"placas-graficas-internas","brand":"MSI","img":"https://www.elitedigital.pt/1429462-home_default/placa-grafica-msi-rtx-4090-ventus-3x-e-24g-oc-24gb-gddr6x-2550mhz-boost.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/258036-placa-grafica-msi-rtx-4090-ventus-3x-e-24g-oc-24gb-gddr6x-2550mhz-boost.html","price":"1 912,54 €","val":1912.54,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"286443","name":"Placa Gráfica Asrock Radeon RX 7900 GRE 16GB GDDR6 Challenger OC - PCIe 4.0, 2x","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7993883-home_default/placa-grafica-asrock-radeon-rx-7900-gre-16gb-gddr6-challenger-oc-pcie-40-2x-ventoinhas-2293-mhz.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/286443-placa-grafica-asrock-radeon-rx-7900-gre-16gb-gddr6-challenger-oc-pcie-40-2x-ventoinhas-2293-mhz-4710483944772.html","price":"731,25 €","val":731.25,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"345401","name":"Placa Gráfica MSI RTX 3050 LP 6G OC - 6GB GDDR6, HDMI, Low Profile","cat":"placas-graficas-internas","brand":"MSI","img":"https://www.elitedigital.pt/7808251-home_default/placa-grafica-msi-rtx-3050-lp-6g-oc-6gb-gddr6-hdmi-low-profile.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/345401-placa-grafica-msi-rtx-3050-lp-6g-oc-6gb-gddr6-hdmi-low-profile-4711377176828.html","price":"204,51 €","val":204.51,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"234855","name":"Placa Gráfica MSI GT 1030 2GB GDDR4, Low Profile, HDMI e DisplayPort","cat":"placas-graficas-internas","brand":"MSI","img":"https://www.elitedigital.pt/1344364-home_default/placa-grafica-msi-gt-1030-2gb-gddr4-low-profile-hdmi-e-displayport.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/234855-placa-grafica-msi-gt-1030-2gb-gddr4-low-profile-hdmi-e-displayport-4719072561420.html","price":"99,93 €","val":99.93,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"364813","name":"Placa Gráfica Asus Dual RTX 3070 8GB GDDR6, PCI-E 4.0, HDMI, DisplayPort","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7991827-home_default/placa-grafica-asus-dual-rtx-3070-8gb-gddr6-pci-e-40-hdmi-displayport.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364813-placa-grafica-asus-dual-rtx-3070-8gb-gddr6-pci-e-40-hdmi-displayport.html","price":"675,74 €","val":675.74,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"28264","name":"Placa Gráfica AFOX GF210 1GB DDR3 HDMI/DVI/VGA","cat":"placas-graficas-internas","brand":"AFOX","img":"https://www.elitedigital.pt/7993329-home_default/placa-grafica-afox-gf210-1gb-ddr3-hdmi-dvi-vga.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/28264-placa-grafica-afox-gf210-1gb-ddr3-hdmi-dvi-vga.html","price":"34,90 €","val":34.9,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"364818","name":"Placa Gráfica Asus Dual RTX 3060 Ti MINI 8GB GDDR6 - PCI-e, 3x DisplayPort, 1x HDMI","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7992636-home_default/placa-grafica-asus-dual-rtx-3060-ti-mini-8gb-gddr6-pci-e-3x-displayport-1x-hdmi.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364818-placa-grafica-asus-dual-rtx-3060-ti-mini-8gb-gddr6-pci-e-3x-displayport-1x-hdmi-4711081322917.html","price":"420,66 €","val":420.66,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364106","name":"Placa Gráfica Gigabyte AMD RX 9070 GV-R9070GAMING OC-16GD GDDR6","cat":"placas-graficas-internas","brand":"AMD","img":"https://www.elitedigital.pt/9713383-home_default/placa-grafica-gigabyte-amd-rx-9070-gv-r9070gaming-oc-16gd-gddr6.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364106-placa-grafica-gigabyte-amd-rx-9070-gv-r9070gaming-oc-16gd-gddr6-4719331355531.html","price":"699,17 €","val":699.17,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"227470","name":"MSI RTX 3050 Ventus 2X XS 8G OC - Placa Gráfica 8GB GDDR6 com Ray Tracing","cat":"placas-graficas-internas","brand":"MSI","img":"https://www.elitedigital.pt/7808598-home_default/msi-rtx-3050-ventus-2x-xs-8g-oc-placa-grafica-8gb-gddr6-com-ray-tracing.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/227470-msi-rtx-3050-ventus-2x-xs-8g-oc-placa-grafica-8gb-gddr6-com-ray-tracing-4711377084796.html","price":"189,00 €","val":189.0,"disc":"-80,00","novo":false,"esgotado":true,"reviews":0},{"id":"363942","name":"Placa Gráfica Asus TUF-RTX5090-O32G-GAMING 32GB GDDR7 PCIe, DLSS4","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7803708-home_default/placa-grafica-asus-tuf-rtx5090-o32g-gaming-32gb-gddr7-pcie-dlss4.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/363942-placa-grafica-asus-tuf-rtx5090-o32g-gaming-32gb-gddr7-pcie-dlss4-4711387890325.html","price":"3 653,30 €","val":3653.3,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"203252","name":"Placa Gráfica AFOX GT710 1GB DDR3, PCIe 2.0, HDMI, DVI e VGA","cat":"placas-graficas-internas","brand":"AFOX","img":"https://www.elitedigital.pt/7993642-home_default/placa-grafica-afox-gt710-1gb-ddr3-pcie-20-hdmi-dvi-e-vga.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/203252-placa-grafica-afox-gt710-1gb-ddr3-pcie-20-hdmi-dvi-e-vga.html","price":"54,21 €","val":54.21,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"253381","name":"Placa Gráfica ASUS RTX4060 DUAL OC 8GB, GDDR6, 2535 MHz Boost, 3x DisplayPort","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/1422461-home_default/placa-grafica-asus-rtx4060-dual-oc-8gb-gddr6-2535-mhz-boost-3x-displayport.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/253381-placa-grafica-asus-rtx4060-dual-oc-8gb-gddr6-2535-mhz-boost-3x-displayport.html","price":"343,17 €","val":343.17,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364831","name":"Placa Gráfica MSI GeForce RTX 5080 Ventus 3X OC 16GB GDDR7, 2655 MHz e 3x Ventoinhas","cat":"placas-graficas-internas","brand":"MSI","img":"https://www.elitedigital.pt/7993958-home_default/placa-grafica-msi-geforce-rtx-5080-ventus-3x-oc-16gb-gddr7-2655-mhz-e-3x-ventoinhas.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364831-placa-grafica-msi-geforce-rtx-5080-ventus-3x-oc-16gb-gddr7-2655-mhz-e-3x-ventoinhas.html","price":"1 392,19 €","val":1392.19,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"257920","name":"Placa Gráfica PNY RTX A4000 16GB GDDR6, 4 DisplayPort, 1 Ventoinha, PCI Express 4.0","cat":"placas-graficas-internas","brand":"PNY","img":"https://www.elitedigital.pt/1429229-home_default/placa-grafica-pny-rtx-a4000-16gb-gddr6-4-displayport-1-ventoinha-pci-express-40.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/257920-placa-grafica-pny-rtx-a4000-16gb-gddr6-4-displayport-1-ventoinha-pci-express-40-3536403383855.html","price":"1 350,21 €","val":1350.21,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"223356","name":"Placa Gráfica MSI RTX 4060 Ti VENTUS 2X BLACK OC 8GB GDDR6, 2x Ventoinhas","cat":"placas-graficas-internas","brand":"MSI","img":"https://www.elitedigital.pt/2015275-home_default/placa-grafica-msi-rtx-4060-ti-ventus-2x-black-oc-8gb-gddr6-2x-ventoinhas.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/223356-placa-grafica-msi-rtx-4060-ti-ventus-2x-black-oc-8gb-gddr6-2x-ventoinhas-4711377216166.html","price":"442,65 €","val":442.65,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"158256","name":"Placa Gráfica Asus Dual RTX 3070 8GB GDDR6, 2x Ventoinhas, 4K, PCI-e 4.0","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/11072240-home_default/placa-grafica-asus-dual-rtx-3070-8gb-gddr6-2x-ventoinhas-4k-pci-e-40.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/158256-placa-grafica-asus-dual-rtx-3070-8gb-gddr6-2x-ventoinhas-4k-pci-e-40-4711081412557.html","price":"654,36 €","val":654.36,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"274557","name":"Placa Gráfica MSI GT 1030 2GB GDDR4 LP OC, Silenciosa","cat":"placas-graficas-internas","brand":"MSI","img":"https://www.elitedigital.pt/1452530-home_default/placa-grafica-msi-gt-1030-2gb-gddr4-lp-oc-silenciosa.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/274557-placa-grafica-msi-gt-1030-2gb-gddr4-lp-oc-silenciosa-4719072561420.html","price":"129,00 €","val":129.0,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"275152","name":"Placa Gráfica Asus Dual GTX 1650 4GB GDDR6, PCI-E 4.0, HDMI, DVI, DisplayPort","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/11090609-home_default/placa-grafica-asus-dual-gtx-1650-4gb-gddr6-pci-e-40-hdmi-dvi-displayport.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/275152-placa-grafica-asus-dual-gtx-1650-4gb-gddr6-pci-e-40-hdmi-dvi-displayport-471138700087.html","price":"192,29 €","val":192.29,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364003","name":"Placa Gráfica Asus PRIME RTX 5080 16GB GDDR7, DLSS 4, Blackwell Architecture","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7807861-home_default/placa-grafica-asus-prime-rtx-5080-16gb-gddr7-dlss-4-blackwell-architecture.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364003-placa-grafica-asus-prime-rtx-5080-16gb-gddr7-dlss-4-blackwell-architecture-4711387837788.html","price":"1 892,01 €","val":1892.01,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"345478","name":"Placa Gráfica Asus RTX 4060Ti Dual OC WHITE 8GB GDDR6, PCI-E 4.0, DLSS 3","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7993757-home_default/placa-grafica-asus-rtx-4060ti-dual-oc-white-8gb-gddr6-pci-e-40-dlss-3.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/345478-placa-grafica-asus-rtx-4060ti-dual-oc-white-8gb-gddr6-pci-e-40-dlss-3-4711387228722.html","price":"459,00 €","val":459.0,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"257922","name":"Placa Gráfica PNY RTX A2000 12GB GDDR6, 4x mDP, PCIe 4.0","cat":"placas-graficas-internas","brand":"PNY","img":"https://www.elitedigital.pt/1429234-home_default/placa-grafica-pny-rtx-a2000-12gb-gddr6-4x-mdp-pcie-40.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/257922-placa-grafica-pny-rtx-a2000-12gb-gddr6-4x-mdp-pcie-40-3536403388867.html","price":"774,32 €","val":774.32,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"229101","name":"Placa Gráfica AFOX GTX 1660 Super 6GB GDDR6, 3x Saídas Vídeo","cat":"placas-graficas-internas","brand":"AFOX","img":"https://www.elitedigital.pt/1302431-home_default/placa-grafica-afox-gtx-1660-super-6gb-gddr6-3x-saidas-video.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/229101-placa-grafica-afox-gtx-1660-super-6gb-gddr6-3x-saidas-video.html","price":"184,80 €","val":184.8,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"215738","name":"Placa Gráfica Asus DUAL-RTX4060TI-O8G 8GB GDDR6, PCI-e 4.0, HDMI e DisplayPort","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/11073676-home_default/placa-grafica-asus-dual-rtx4060ti-o8g-8gb-gddr6-pci-e-40-hdmi-e-displayport.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/215738-placa-grafica-asus-dual-rtx4060ti-o8g-8gb-gddr6-pci-e-40-hdmi-e-displayport-4711387183106.html","price":"483,96 €","val":483.96,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"253282","name":"Placa Gráfica Asus GTX1650-O4G-LP-BRK 4GB GDDR5 - Low Profile, PCI-E 3.0, HDMI,","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7991518-home_default/placa-grafica-asus-gtx1650-o4g-lp-brk-4gb-gddr5-low-profile-pci-e-30-hdmi-displayport-e-dvi.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/253282-placa-grafica-asus-gtx1650-o4g-lp-brk-4gb-gddr5-low-profile-pci-e-30-hdmi-displayport-e-dvi-4718017411301.html","price":"231,97 €","val":231.97,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"336086","name":"Placa Gráfica PNY T1000 8GB GDDR6, 4x Mini-DP, PCI-e 3.0","cat":"placas-graficas-internas","brand":"PNY","img":"https://www.elitedigital.pt/1656444-home_default/placa-grafica-pny-t1000-8gb-gddr6-4x-mini-dp-pci-e-30.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/336086-placa-grafica-pny-t1000-8gb-gddr6-4x-mini-dp-pci-e-30-3536403387921.html","price":"468,67 €","val":468.67,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"364846","name":"Placa Gráfica Gigabyte RTX5090 Aorus Xtreme WForce 32GB GDDR7, PCIe 5.0, WATERFORCE, RGB","cat":"placas-graficas-internas","brand":"Outros","img":"https://www.elitedigital.pt/7993992-home_default/placa-grafica-gigabyte-rtx5090-aorus-xtreme-wforce-32gb-gddr7-pcie-50-waterforce-rgb.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/364846-placa-grafica-gigabyte-rtx5090-aorus-xtreme-wforce-32gb-gddr7-pcie-50-waterforce-rgb.html","price":"2 775,46 €","val":2775.46,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"258173","name":"Placa Gráfica Asus RTX 4080 SUPER 16GB GDDR6X, PCIe 4.0, 3 Ventoinhas, 7680x4320","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/12092091-home_default/placa-grafica-asus-rtx-4080-super-16gb-gddr6x-pcie-40-3-ventoinhas-7680x4320.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/258173-placa-grafica-asus-rtx-4080-super-16gb-gddr6x-pcie-40-3-ventoinhas-7680x4320-4711387452271.html","price":"1 314,75 €","val":1314.75,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"366715","name":"Placa Gráfica 8GB PCIe NVIDIA PNY RTX A1000 GDDR6 (Bulk)","cat":"placas-graficas-internas","brand":"PNY","img":"https://www.elitedigital.pt/9805788-home_default/placa-grafica-8gb-pcie-nvidia-pny-rtx-a1000-gddr6-bulk.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/366715-placa-grafica-8gb-pcie-nvidia-pny-rtx-a1000-gddr6-bulk-3536403399481.html","price":"606,19 €","val":606.19,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"253258","name":"Placa Gráfica Asus TUF-GTX1660Ti-O6G-EVO-GAMING 6GB GDDR6, HDMI, DisplayPort e DVI-D","cat":"placas-graficas-internas","brand":"ASUS","img":"https://www.elitedigital.pt/7991673-home_default/placa-grafica-asus-tuf-gtx1660ti-o6g-evo-gaming-6gb-gddr6-hdmi-displayport-e-dvi-d.jpg","url":"https://www.elitedigital.pt/placas-graficas-internas/253258-placa-grafica-asus-tuf-gtx1660ti-o6g-evo-gaming-6gb-gddr6-hdmi-displayport-e-dvi-d-4711081320227.html","price":"426,40 €","val":426.4,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"73","name":"Motherboard Asus M5A78L-M LE/USB3, AM3+, DDR3, SATA II","cat":"placas-mae-desktops","brand":"ASUS","img":"https://www.elitedigital.pt/353646-home_default/motherboard-asus-m5a78l-m-le-usb3-am3-ddr3-sata-ii.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/73-motherboard-asus-m5a78l-m-le-usb3-am3-ddr3-sata-ii-4712900074369.html","price":"28,62 €","val":28.62,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"1397","name":"Motherboard ASUS Prime H310M-DASH R2.0, LGA1151, DDR4, HDMI, DisplayPort","cat":"placas-mae-desktops","brand":"ASUS","img":"https://www.elitedigital.pt/4296943-home_default/motherboard-asus-prime-h310m-dash-r20-lga1151-ddr4-hdmi-displayport.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/1397-motherboard-asus-prime-h310m-dash-r20-lga1151-ddr4-hdmi-displayport-4718017194860.html","price":"69,00 €","val":69.0,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"1076","name":"Motherboard AsRock H370M-HDV Skt1151, Micro-ATX, HDMI, USB 3.2 Gen1","cat":"placas-mae-desktops","brand":"ASUS","img":"https://www.elitedigital.pt/355839-home_default/motherboard-asrock-h370m-hdv-skt1151-micro-atx-hdmi-usb-32-gen1.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/1076-motherboard-asrock-h370m-hdv-skt1151-micro-atx-hdmi-usb-32-gen1-4710483933110.html","price":"58,55 €","val":58.55,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"365434","name":"MotherBoard Mini-ITX ASUS PRIME N100I-D D4-CSM Intel N100","cat":"placas-mae-desktops","brand":"ASUS","img":"https://www.elitedigital.pt/9187610-home_default/motherboard-mini-itx-asus-prime-n100i-d-d4-csm-intel-n100.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/365434-motherboard-mini-itx-asus-prime-n100i-d-d4-csm-intel-n100-4711387262320.html","price":"93,60 €","val":93.6,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"369360","name":"MotherBoard SktAM5 ATX ASUS PRIME B850-PLUS","cat":"placas-mae-desktops","brand":"ASUS","img":"https://www.elitedigital.pt/12062121-home_default/motherboard-sktam5-atx-asus-prime-b850-plus.jpg","url":"https://www.elitedigital.pt/placas-mae-desktops/369360-motherboard-sktam5-atx-asus-prime-b850-plus-4711387982037.html","price":"182,11 €","val":182.11,"disc":null,"novo":true,"esgotado":false,"reviews":59},{"id":"201010","name":"Processador AMD Ryzen 5 PRO 5650G AM4, 6 Núcleos, 4.4GHz Turbo, Radeon Graphics","cat":"processadores-desktop","brand":"AMD","img":"https://www.elitedigital.pt/1137601-home_default/processador-amd-ryzen-5-pro-5650g-am4-6-nucleos-44ghz-turbo-radeon-graphics.jpg","url":"https://www.elitedigital.pt/processadores-desktop/201010-processador-amd-ryzen-5-pro-5650g-am4-6-nucleos-44ghz-turbo-radeon-graphics-0730143313711.html","price":"126,14 €","val":126.14,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"365290","name":"Processador Intel Core i3-14100F 3.5GHz - 4 Núcleos, 17MB Cache","cat":"processadores-desktop","brand":"Intel","img":"https://www.elitedigital.pt/8906092-home_default/processador-intel-core-i3-14100f-35ghz-4-nucleos-17mb-cache.jpg","url":"https://www.elitedigital.pt/processadores-desktop/365290-processador-intel-core-i3-14100f-35ghz-4-nucleos-17mb-cache-8435280931720.html","price":"86,26 €","val":86.26,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"361688","name":"Processador AMD Ryzen 5 PRO 5655G AM4, 6 Núcleos, 4.4GHz, Radeon Vega 7","cat":"processadores-desktop","brand":"AMD","img":"https://www.elitedigital.pt/7404765-home_default/processador-amd-ryzen-5-pro-5655g-am4-6-nucleos-44ghz-radeon-vega-7.jpg","url":"https://www.elitedigital.pt/processadores-desktop/361688-processador-amd-ryzen-5-pro-5655g-am4-6-nucleos-44ghz-radeon-vega-7-0730143313711.html","price":"99,78 €","val":99.78,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"355772","name":"Processador AMD Ryzen 7 9700X AM5 8-Core 5.5GHz com Radeon Graphics","cat":"processadores-desktop","brand":"AMD","img":"https://www.elitedigital.pt/7326758-home_default/processador-amd-ryzen-7-9700x-am5-8-core-55ghz-com-radeon-graphics.jpg","url":"https://www.elitedigital.pt/processadores-desktop/355772-processador-amd-ryzen-7-9700x-am5-8-core-55ghz-com-radeon-graphics-8592978561581.html","price":"272,65 €","val":272.65,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"369364","name":"DPA CPU Core i5-14500 Tray","cat":"processadores-desktop","brand":"Outros","img":"https://www.elitedigital.pt/12062294-home_default/dpa-cpu-core-i5-14500-tray.jpg","url":"https://www.elitedigital.pt/processadores-desktop/369364-dpa-cpu-core-i5-14500-tray.html","price":"243,91 €","val":243.91,"disc":null,"novo":true,"esgotado":true,"reviews":0},{"id":"369363","name":"CPU Intel Skt1851 Core Ultra 5 235T(Series2) 2.2-5.0GHz 24MB","cat":"processadores-desktop","brand":"Intel","img":"https://www.elitedigital.pt/12062278-home_default/cpu-intel-skt1851-core-ultra-5-235tseries2-22-50ghz-24mb.jpg","url":"https://www.elitedigital.pt/processadores-desktop/369363-cpu-intel-skt1851-core-ultra-5-235tseries2-22-50ghz-24mb.html","price":"281,88 €","val":281.88,"disc":null,"novo":true,"esgotado":true,"reviews":0},{"id":"369390","name":"Memória DDR5 PNY 32GB 5600MHz DIMM para PC (BULK)","cat":"memoria-desktops","brand":"PNY","img":"https://www.elitedigital.pt/12093498-home_default/memoria-ddr5-pny-32gb-5600mhz-dimm-para-pc-bulk.jpg","url":"https://www.elitedigital.pt/memoria-desktops/369390-memoria-ddr5-pny-32gb-5600mhz-dimm-para-pc-bulk-3536403400453.html","price":"604,27 €","val":604.27,"disc":null,"novo":true,"esgotado":true,"reviews":0},{"id":"369368","name":"Memória Adata DIMM-DDR5 16GB 5600MHz CL46 1,1V","cat":"memoria-desktops","brand":"Outros","img":"https://www.elitedigital.pt/12062329-home_default/memoria-adata-dimm-ddr5-16gb-5600mhz-cl46-11v.jpg","url":"https://www.elitedigital.pt/memoria-desktops/369368-memoria-adata-dimm-ddr5-16gb-5600mhz-cl46-11v.html","price":"262,11 €","val":262.11,"disc":null,"novo":true,"esgotado":false,"reviews":0},{"id":"355809","name":"SSD MSI Spatium M470 Pro 2TB M.2 NVMe PCIe Gen4, Leitura 6000 MB/s","cat":"discos-internos-ssd","brand":"MSI","img":"https://www.elitedigital.pt/7328571-home_default/ssd-msi-spatium-m470-pro-2tb-m2-nvme-pcie-gen4-leitura-6000-mb-s.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/355809-ssd-msi-spatium-m470-pro-2tb-m2-nvme-pcie-gen4-leitura-6000-mb-s-4711377279970.html","price":"363,22 €","val":363.22,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"849","name":"SSD GoodRam S400U 120GB M.2 SATA III TLC, 550MB/s Leitura","cat":"discos-internos-ssd","brand":"Outros","img":"https://www.elitedigital.pt/2342358-home_default/ssd-goodram-s400u-120gb-m2-sata-iii-tlc-550mb-s-leitura.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/849-ssd-goodram-s400u-120gb-m2-sata-iii-tlc-550mb-s-leitura-5908267922873.html","price":"28,59 €","val":28.59,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"369388","name":"Disco SSD M.2 2280 NVMe 1TB PNY CS2341 PCIe Gen4 x4","cat":"discos-internos-ssd","brand":"PNY","img":"https://www.elitedigital.pt/12091556-home_default/disco-ssd-m2-2280-nvme-1tb-pny-cs2341-pcie-gen4-x4.jpg","url":"https://www.elitedigital.pt/discos-internos-ssd/369388-disco-ssd-m2-2280-nvme-1tb-pny-cs2341-pcie-gen4-x4-3536403410063.html","price":"224,68 €","val":224.68,"disc":null,"novo":true,"esgotado":true,"reviews":0},{"id":"60274","name":"Monitor AOC CQ32G3SU/BK 31.5p QHD 165Hz FreeSync e G-Sync","cat":"monitores-lcd","brand":"AOC","img":"https://www.elitedigital.pt/515398-home_default/monitor-aoc-cq32g3su-bk-315p-qhd-165hz-freesync-e-g-sync.jpg","url":"https://www.elitedigital.pt/monitores-lcd/60274-monitor-aoc-cq32g3su-bk-315p-qhd-165hz-freesync-e-g-sync-4038986147200.html","price":"429,90 €","val":429.9,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"24355","name":"Monitor AOC 27\" CQ27G2U/BK Curvo QHD 144Hz FreeSync, Hub USB","cat":"monitores-lcd","brand":"AOC","img":"https://www.elitedigital.pt/515374-home_default/monitor-aoc-27-cq27g2u-bk-curvo-qhd-144hz-freesync-hub-usb.jpg","url":"https://www.elitedigital.pt/monitores-lcd/24355-monitor-aoc-27-cq27g2u-bk-curvo-qhd-144hz-freesync-hub-usb-4038986187114.html","price":"319,90 €","val":319.9,"disc":null,"novo":false,"esgotado":false,"reviews":1},{"id":"8859","name":"Monitor AOC C24G2U/BK 23.6\" FHD 165Hz FreeSync Curvo, HDMI, DisplayPort","cat":"monitores-lcd","brand":"AOC","img":"https://www.elitedigital.pt/515409-home_default/monitor-aoc-c24g2u-bk-236-fhd-165hz-freesync-curvo-hdmi-displayport.jpg","url":"https://www.elitedigital.pt/monitores-lcd/8859-monitor-aoc-c24g2u-bk-236-fhd-165hz-freesync-curvo-hdmi-displayport-4038986148191.html","price":"181,35 €","val":181.35,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"8852","name":"Monitor Curvo AOC C32G2ZE/BK 31.5\" Full HD 240Hz, FreeSync, 0.5ms e Design Gaming","cat":"monitores-lcd","brand":"AOC","img":"https://www.elitedigital.pt/7811501-home_default/monitor-curvo-aoc-c32g2ze-bk-315-full-hd-240hz-freesync-05ms-e-design-gaming.jpg","url":"https://www.elitedigital.pt/monitores-lcd/8852-monitor-curvo-aoc-c32g2ze-bk-315-full-hd-240hz-freesync-05ms-e-design-gaming-4038986117395.html","price":"261,99 €","val":261.99,"disc":null,"novo":false,"esgotado":false,"reviews":13},{"id":"201350","name":"Monitor HP P27h G5 27\" Full HD IPS, 75Hz, HDMI","cat":"monitores-lcd","brand":"HP","img":"https://www.elitedigital.pt/11072172-home_default/monitor-hp-p27h-g5-27-full-hd-ips-75hz-hdmi.jpg","url":"https://www.elitedigital.pt/monitores-lcd/201350-monitor-hp-p27h-g5-27-full-hd-ips-75hz-hdmi-196548133598.html","price":"186,22 €","val":186.22,"disc":null,"novo":false,"esgotado":true,"reviews":0},{"id":"363911","name":"Monitor 27p ASUS TUF Gaming Vg279qe5a FHD 1ms 144Hz","cat":"monitores-lcd","brand":"ASUS","img":"https://www.elitedigital.pt/11565395-home_default/monitor-27p-asus-tuf-gaming-vg279qe5a-fhd-1ms-144hz.jpg","url":"https://www.elitedigital.pt/monitores-lcd/363911-monitor-27p-asus-tuf-gaming-vg279qe5a-fhd-1ms-144hz-4711387871508.html","price":"154,83 €","val":154.83,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"203264","name":"Tablet INSYS GW2-L1049 10.1p FHD, Octa-Core, 4GB RAM, 64GB, LTE","cat":"tablets-standard","brand":"INSYS","img":"https://www.elitedigital.pt/1137926-home_default/tablet-insys-gw2-l1049-101p-fhd-octa-core-4gb-ram-64gb-lte.jpg","url":"https://www.elitedigital.pt/tablets-standard/203264-tablet-insys-gw2-l1049-101p-fhd-octa-core-4gb-ram-64gb-lte-5604008017715.html","price":"148,45 €","val":148.45,"disc":"-30,55","novo":false,"esgotado":false,"reviews":0},{"id":"228778","name":"Tablet INSYS PR3-T704 7p, Android 11 Go, 2GB RAM, 32GB, Capa Rosa","cat":"tablets-standard","brand":"INSYS","img":"https://www.elitedigital.pt/1354686-home_default/tablet-insys-pr3-t704-7p-android-11-go-2gb-ram-32gb-capa-rosa.jpg","url":"https://www.elitedigital.pt/tablets-standard/228778-tablet-insys-pr3-t704-7p-android-11-go-2gb-ram-32gb-capa-rosa-5604008018330.html","price":"61,64 €","val":61.64,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"228779","name":"Tablet INSYS PR3-T704 7p, Android 11 Go, 2GB RAM, 32GB, Capa Azul","cat":"tablets-standard","brand":"INSYS","img":"https://www.elitedigital.pt/1354688-home_default/tablet-insys-pr3-t704-7p-android-11-go-2gb-ram-32gb-capa-azul.jpg","url":"https://www.elitedigital.pt/tablets-standard/228779-tablet-insys-pr3-t704-7p-android-11-go-2gb-ram-32gb-capa-azul-5604008018347.html","price":"61,13 €","val":61.13,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"369378","name":"Bundle Tablet INSYS HN2-M16P 10.1\" IPS 2GB|16GB|NFC|Android com Teclado USB/Folio","cat":"tablets-standard","brand":"INSYS","img":"https://www.elitedigital.pt/12088245-home_default/bundle-tablet-insys-hn2-m16p-101-ips-2gb16gbnfcandroid-com-teclado-usb-folio.jpg","url":"https://www.elitedigital.pt/tablets-standard/369378-bundle-tablet-insys-hn2-m16p-101-ips-2gb16gbnfcandroid-com-teclado-usb-folio.html","price":"133,27 €","val":133.27,"disc":null,"novo":true,"esgotado":false,"reviews":0},{"id":"265","name":"Smartphone INSYS IH8-S559 5.5\" 2GB RAM 16GB Dual SIM Android 8.1","cat":"smartphones","brand":"INSYS","img":"https://www.elitedigital.pt/353984-home_default/smartphone-insys-ih8-s559-55-2gb-ram-16gb-dual-sim-android-81.jpg","url":"https://www.elitedigital.pt/smartphones/265-smartphone-insys-ih8-s559-55-2gb-ram-16gb-dual-sim-android-81-5604008011201.html","price":"51,36 €","val":51.36,"disc":null,"novo":false,"esgotado":false,"reviews":3},{"id":"345690","name":"Telemóvel INSYS YT1-G1, 2xSIM, Botão SOS, Base Carregamento, Pulseira","cat":"telemoveis","brand":"INSYS","img":"https://www.elitedigital.pt/1692541-home_default/telemovel-insys-yt1-g1-2xsim-botao-sos-base-carregamento-pulseira.jpg","url":"https://www.elitedigital.pt/telemoveis/345690-telemovel-insys-yt1-g1-2xsim-botao-sos-base-carregamento-pulseira-5604008013090.html","price":"59,90 €","val":59.9,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"228962","name":"Telemóvel INSYS WT7-WO13 1.77p, Dual SIM, Rádio FM, Leitor MP3","cat":"telemoveis","brand":"INSYS","img":"https://www.elitedigital.pt/1301362-home_default/telemovel-insys-wt7-wo13-177p-dual-sim-radio-fm-leitor-mp3.jpg","url":"https://www.elitedigital.pt/telemoveis/228962-telemovel-insys-wt7-wo13-177p-dual-sim-radio-fm-leitor-mp3-5604008010518.html","price":"14,90 €","val":14.9,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"162033","name":"Telemóvel M4trixx Y3-K440, 1.77\", Dual SIM, 0.3MP, Rádio FM","cat":"telemoveis","brand":"M4trixx","img":"https://www.elitedigital.pt/915171-home_default/telemovel-m4trixx-y3-k440-177-dual-sim-03mp-radio-fm.jpg","url":"https://www.elitedigital.pt/telemoveis/162033-telemovel-m4trixx-y3-k440-177-dual-sim-03mp-radio-fm-5604008005637.html","price":"7,75 €","val":7.75,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"161919","name":"Telemóvel INSYS FlipBasic YT7-T40, Ecrã 1.77\", Dual SIM, Botão SOS e Rádio FM","cat":"telemoveis","brand":"INSYS","img":"https://www.elitedigital.pt/911583-home_default/telemovel-insys-flipbasic-yt7-t40-ecra-177-dual-sim-botao-sos-e-radio-fm.jpg","url":"https://www.elitedigital.pt/telemoveis/161919-telemovel-insys-flipbasic-yt7-t40-ecra-177-dual-sim-botao-sos-e-radio-fm-5604008010488.html","price":"19,90 €","val":19.9,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"26991","name":"Caixa Micro-ATX Gaming Gamemax SilentHill H606, Silenciosa, USB 3.0, 1x120mm","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/433945-home_default/caixa-micro-atx-gaming-gamemax-silenthill-h606-silenciosa-usb-30-1x120mm.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/26991-caixa-micro-atx-gaming-gamemax-silenthill-h606-silenciosa-usb-30-1x120mm.html","price":"26,90 €","val":26.9,"disc":"-1,71","novo":false,"esgotado":false,"reviews":0},{"id":"366538","name":"Caixa Gamemax Forge AB ATX, 2xUSB, 1xType-C, s/PSU","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/9631231-home_default/caixa-gamemax-forge-ab-atx-2xusb-1xtype-c-s-psu.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/366538-caixa-gamemax-forge-ab-atx-2xusb-1xtype-c-s-psu.html","price":"36,90 €","val":36.9,"disc":"-2,00","novo":false,"esgotado":false,"reviews":0},{"id":"241207","name":"Caixa Gamemax Infinity ATX, Design Modular, Vidro Temperado, aRGB","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1347176-home_default/caixa-gamemax-infinity-atx-design-modular-vidro-temperado-argb.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241207-caixa-gamemax-infinity-atx-design-modular-vidro-temperado-argb.html","price":"49,90 €","val":49.9,"disc":"-10,00","novo":false,"esgotado":false,"reviews":0},{"id":"1449","name":"Caixa Gamemax Panda T802 White - ATX, Vidro Temperado, ARGB, USB 3.0","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/8467493-home_default/caixa-gamemax-panda-t802-white-atx-vidro-temperado-argb-usb-30.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/1449-caixa-gamemax-panda-t802-white-atx-vidro-temperado-argb-usb-30.html","price":"49,90 €","val":49.9,"disc":"-10,00","novo":false,"esgotado":false,"reviews":0},{"id":"27002","name":"Caixa Gamemax Paladin T801 Black - ATX, Vidro Temperado, ARGB, USB 3.0","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/515345-home_default/caixa-gamemax-paladin-t801-black-atx-vidro-temperado-argb-usb-30.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/27002-caixa-gamemax-paladin-t801-black-atx-vidro-temperado-argb-usb-30.html","price":"54,89 €","val":54.89,"disc":"-15,01","novo":false,"esgotado":true,"reviews":0},{"id":"241021","name":"Caixa ATX Gamemax Kreator - Painel Vidro Temperado, aRGB, Controlador e Personalizável","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1346798-home_default/caixa-atx-gamemax-kreator-painel-vidro-temperado-argb-controlador-e-personalizavel.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241021-caixa-atx-gamemax-kreator-painel-vidro-temperado-argb-controlador-e-personalizavel.html","price":"54,90 €","val":54.9,"disc":"-12,00","novo":false,"esgotado":false,"reviews":0},{"id":"241204","name":"Caixa Gamemax Brufen C1 ATX, Vidro Temperado, aRGB, COC, 2xUSB3.0","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1347154-home_default/caixa-gamemax-brufen-c1-atx-vidro-temperado-argb-coc-2xusb30.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241204-caixa-gamemax-brufen-c1-atx-vidro-temperado-argb-coc-2xusb30.html","price":"59,90 €","val":59.9,"disc":"-10,00","novo":false,"esgotado":false,"reviews":26},{"id":"366543","name":"Caixa Gamemax Titan Silent2 Full Tower, 4xUSB, 1xType-C, s/PSU","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/9630567-home_default/caixa-gamemax-titan-silent2-full-tower-4xusb-1xtype-c-s-psu.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/366543-caixa-gamemax-titan-silent2-full-tower-4xusb-1xtype-c-s-psu-6931858770484.html","price":"69,90 €","val":69.9,"disc":"-2,10","novo":false,"esgotado":false,"reviews":0},{"id":"27005","name":"Caixa Gamemax Abyss TR Full Tower - Vidro Temperado, aRGB, USB 3.0","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/520097-home_default/caixa-gamemax-abyss-tr-full-tower-vidro-temperado-argb-usb-30.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/27005-caixa-gamemax-abyss-tr-full-tower-vidro-temperado-argb-usb-30.html","price":"79,90 €","val":79.9,"disc":"-20,00","novo":false,"esgotado":false,"reviews":1},{"id":"241379","name":"Caixa ATX Gamemax Vista AB Gaming, aRGB, USB-C, 6xVentoinhas","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1348578-home_default/caixa-atx-gamemax-vista-ab-gaming-argb-usb-c-6xventoinhas.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241379-caixa-atx-gamemax-vista-ab-gaming-argb-usb-c-6xventoinhas.html","price":"79,90 €","val":79.9,"disc":"-20,00","novo":false,"esgotado":false,"reviews":0},{"id":"679","name":"Caixa Asus TUF Gaming GT301 ATX, Vidro Temperado, ARGB, 3 Fans","cat":"caixas-de-computador","brand":"ASUS","img":"https://www.elitedigital.pt/2064774-home_default/caixa-asus-tuf-gaming-gt301-atx-vidro-temperado-argb-3-fans.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/679-caixa-asus-tuf-gaming-gt301-atx-vidro-temperado-argb-3-fans-4718017521741.html","price":"84,00 €","val":84.0,"disc":"-15,90","novo":false,"esgotado":false,"reviews":0},{"id":"1453","name":"Caixa Gaming Gamemax Onyx II Full Tower E-ATX, Vidro Temperado e RGB","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/580507-home_default/caixa-gaming-gamemax-onyx-ii-full-tower-e-atx-vidro-temperado-e-rgb.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/1453-caixa-gaming-gamemax-onyx-ii-full-tower-e-atx-vidro-temperado-e-rgb-5055492405036.html","price":"89,90 €","val":89.9,"disc":"-10,00","novo":false,"esgotado":false,"reviews":0},{"id":"241378","name":"Caixa Gaming Gamemax Hype Black ATX, USB 3.0 e USB-C, com 3 Ventoinhas ARGB","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1348572-home_default/caixa-gaming-gamemax-hype-black-atx-usb-30-e-usb-c-com-3-ventoinhas-argb.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241378-caixa-gaming-gamemax-hype-black-atx-usb-30-e-usb-c-com-3-ventoinhas-argb.html","price":"124,89 €","val":124.89,"disc":"-25,01","novo":false,"esgotado":false,"reviews":0},{"id":"241380","name":"Caixa ATX Gamemax Black Hole Gaming, aRGB, USB3.0, Vidro Temperado","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1348587-home_default/caixa-atx-gamemax-black-hole-gaming-argb-usb30-vidro-temperado.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241380-caixa-atx-gamemax-black-hole-gaming-argb-usb30-vidro-temperado-6931858773056.html","price":"64,89 €","val":64.89,"disc":null,"novo":false,"esgotado":false,"reviews":11},{"id":"241206","name":"Caixa Gamemax MeshBox Pro ATX, Fluxo de Ar Otimizado, USB 3.2, Tipo C","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1347168-home_default/caixa-gamemax-meshbox-pro-atx-fluxo-de-ar-otimizado-usb-32-tipo-c.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241206-caixa-gamemax-meshbox-pro-atx-fluxo-de-ar-otimizado-usb-32-tipo-c.html","price":"59,90 €","val":59.9,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"241138","name":"Caixa Gaming Gamemax M60 Black - Micro ATX, Painéis Rede, USB 3.0 e 2.0","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1346790-home_default/caixa-gaming-gamemax-m60-black-micro-atx-paineis-rede-usb-30-e-20.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241138-caixa-gaming-gamemax-m60-black-micro-atx-paineis-rede-usb-30-e-20.html","price":"36,04 €","val":36.04,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"241139","name":"Caixa Micro ATX Gamemax SilentHill H606 - Design Silencioso, USB 3.0, Arrefecimento e","cat":"caixas-de-computador","brand":"Gamemax","img":"https://www.elitedigital.pt/1346809-home_default/caixa-micro-atx-gamemax-silenthill-h606-design-silencioso-usb-30-arrefecimento-e-compacta.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/241139-caixa-micro-atx-gamemax-silenthill-h606-design-silencioso-usb-30-arrefecimento-e-compacta.html","price":"34,60 €","val":34.6,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"369374","name":"Caixa M-ATX Lian Li x Dan Cases B4 Preta","cat":"caixas-de-computador","brand":"Outros","img":"https://www.elitedigital.pt/12066272-home_default/caixa-m-atx-lian-li-x-dan-cases-b4-preta.jpg","url":"https://www.elitedigital.pt/caixas-de-computador/369374-caixa-m-atx-lian-li-x-dan-cases-b4-preta-4718466023261.html","price":"77,66 €","val":77.66,"disc":null,"novo":true,"esgotado":true,"reviews":0},{"id":"1437","name":"Ventoinha Gamemax RB300 aRGB 120mm Kit 3 - 1900 RPM, 58.8 CFM, aRGB","cat":"refrigeracao-desktops","brand":"Gamemax","img":"https://www.elitedigital.pt/356660-home_default/ventoinha-gamemax-rb300-argb-120mm-kit-3-1900-rpm-588-cfm-argb.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/1437-ventoinha-gamemax-rb300-argb-120mm-kit-3-1900-rpm-588-cfm-argb-6931858791120.html","price":"14,90 €","val":14.9,"disc":"-10,00","novo":false,"esgotado":false,"reviews":0},{"id":"241502","name":"Cooler CPU Gamemax Sigma 540 BK, 200W TDP, 4 Heatpipes, AM4/AM5","cat":"refrigeracao-desktops","brand":"Gamemax","img":"https://www.elitedigital.pt/1349901-home_default/cooler-cpu-gamemax-sigma-540-bk-200w-tdp-4-heatpipes-am4-am5.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/241502-cooler-cpu-gamemax-sigma-540-bk-200w-tdp-4-heatpipes-am4-am5-6931858791625.html","price":"22,91 €","val":22.91,"disc":"-7,56","novo":false,"esgotado":false,"reviews":0},{"id":"241573","name":"Kit Ventoinhas Gamemax DRH400 4x120mm aRGB, Hub, PWM, Gaming","cat":"refrigeracao-desktops","brand":"Gamemax","img":"https://www.elitedigital.pt/1350643-home_default/kit-ventoinhas-gamemax-drh400-4x120mm-argb-hub-pwm-gaming.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/241573-kit-ventoinhas-gamemax-drh400-4x120mm-argb-hub-pwm-gaming-6931858791267.html","price":"24,90 €","val":24.9,"disc":"-10,53","novo":false,"esgotado":false,"reviews":0},{"id":"365746","name":"Water Cooler CPU Gamemax IceBurg 240 Digital BK, ARGB, 240mm, LGA/AMD","cat":"refrigeracao-desktops","brand":"AMD","img":"https://www.elitedigital.pt/9474447-home_default/water-cooler-cpu-gamemax-iceburg-240-digital-bk-argb-240mm-lga-amd.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/365746-water-cooler-cpu-gamemax-iceburg-240-digital-bk-argb-240mm-lga-amd-6931858791557.html","price":"69,90 €","val":69.9,"disc":"-7,10","novo":false,"esgotado":false,"reviews":0},{"id":"241501","name":"Cooler CPU Gamemax Sigma 540 ARGB, 200W TDP, 4 Heatpipes, aRGB","cat":"refrigeracao-desktops","brand":"Gamemax","img":"https://www.elitedigital.pt/1350637-home_default/cooler-cpu-gamemax-sigma-540-argb-200w-tdp-4-heatpipes-argb.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/241501-cooler-cpu-gamemax-sigma-540-argb-200w-tdp-4-heatpipes-argb-6931858791632.html","price":"25,90 €","val":25.9,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"26250","name":"Cooler Intel SKT#170 LGA 1150/1151/1155/1156/1200 - Alumínio e Silencioso","cat":"refrigeracao-desktops","brand":"Intel","img":"https://www.elitedigital.pt/431597-home_default/cooler-intel-skt170-lga-1150-1151-1155-1156-1200-aluminio-e-silencioso.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/26250-cooler-intel-skt170-lga-1150-1151-1155-1156-1200-aluminio-e-silencioso.html","price":"9,99 €","val":9.99,"disc":null,"novo":false,"esgotado":false,"reviews":0},{"id":"369373","name":"Ventoinha Extr Ar p/ Cxa -  3 x 120mm Arctic P12 Slim PWM","cat":"refrigeracao-desktops","brand":"Outros","img":"https://www.elitedigital.pt/12066268-home_default/ventoinha-extr-ar-p-cxa-3-x-120mm-arctic-p12-slim-pwm.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/369373-ventoinha-extr-ar-p-cxa-3-x-120mm-arctic-p12-slim-pwm-4895213703888.html","price":"20,55 €","val":20.55,"disc":null,"novo":true,"esgotado":true,"reviews":0},{"id":"369372","name":"Ventoinha Extr Ar p/ Caixa 120mm Arctic P12 Pro PST 3000RPM","cat":"refrigeracao-desktops","brand":"Outros","img":"https://www.elitedigital.pt/12066267-home_default/ventoinha-extr-ar-p-caixa-120mm-arctic-p12-pro-pst-3000rpm.jpg","url":"https://www.elitedigital.pt/refrigeracao-desktops/369372-ventoinha-extr-ar-p-caixa-120mm-arctic-p12-pro-pst-3000rpm-4895265000089.html","price":"7,93 €","val":7.93,"disc":null,"novo":true,"esgotado":true,"reviews":0},{"id":"355690","name":"Fonte de Alimentação Gamemax GP-650 650W 80+ Bronze ATX, PFC Ativo e 140mm","cat":"fontes-de-alimentacao-standard","brand":"Gamemax","img":"https://www.elitedigital.pt/7317600-home_default/fonte-de-alimentacao-gamemax-gp-650-650w-80-bronze-atx-pfc-ativo-e-140mm.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/355690-fonte-de-alimentacao-gamemax-gp-650-650w-80-bronze-atx-pfc-ativo-e-140mm-6931858720069.html","price":"44,89 €","val":44.89,"disc":"-15,01","novo":false,"esgotado":true,"reviews":0},{"id":"157139","name":"Fonte Gamemax GP-650WHITE 650W 80+ Bronze, Branca","cat":"fontes-de-alimentacao-standard","brand":"Gamemax","img":"https://www.elitedigital.pt/806641-home_default/fonte-gamemax-gp-650white-650w-80-bronze-branca.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/157139-fonte-gamemax-gp-650white-650w-80-bronze-branca-6931858720144.html","price":"44,89 €","val":44.89,"disc":"-15,01","novo":false,"esgotado":false,"reviews":0},{"id":"366738","name":"Fonte de Alimentação Gamemax GM-700 700W 80+ Bronze Modular - ATX, 14cm Ventoinha,","cat":"fontes-de-alimentacao-standard","brand":"Gamemax","img":"https://www.elitedigital.pt/10078073-home_default/fonte-de-alimentacao-gamemax-gm-700-700w-80-bronze-modular-atx-14cm-ventoinha-protecao-total.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/366738-fonte-de-alimentacao-gamemax-gm-700-700w-80-bronze-modular-atx-14cm-ventoinha-protecao-total-6931858740524.html","price":"63,99 €","val":63.99,"disc":"-3,09","novo":false,"esgotado":false,"reviews":0},{"id":"355697","name":"Fonte Gamemax GX-750 750W 80+ Gold Modular - Ventoinha 120mm","cat":"fontes-de-alimentacao-standard","brand":"Gamemax","img":"https://www.elitedigital.pt/7317644-home_default/fonte-gamemax-gx-750-750w-80-gold-modular-ventoinha-120mm.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/355697-fonte-gamemax-gx-750-750w-80-gold-modular-ventoinha-120mm-6931858768139.html","price":"79,00 €","val":79.0,"disc":"-2,99","novo":false,"esgotado":false,"reviews":0},{"id":"355700","name":"Fonte Gamemax GX-850 Modular 850W 80+ Gold - Cabos Planos","cat":"fontes-de-alimentacao-standard","brand":"Gamemax","img":"https://www.elitedigital.pt/7317677-home_default/fonte-gamemax-gx-850-modular-850w-80-gold-cabos-planos.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/355700-fonte-gamemax-gx-850-modular-850w-80-gold-cabos-planos-6931858768146.html","price":"89,00 €","val":89.0,"disc":"-7,01","novo":false,"esgotado":false,"reviews":0},{"id":"157137","name":"Fonte Gamemax RGB-850PRO 850W 80+ Gold, Totalmente Modular, ARGB","cat":"fontes-de-alimentacao-standard","brand":"Gamemax","img":"https://www.elitedigital.pt/806620-home_default/fonte-gamemax-rgb-850pro-850w-80-gold-totalmente-modular-argb.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/157137-fonte-gamemax-rgb-850pro-850w-80-gold-totalmente-modular-argb.html","price":"99,00 €","val":99.0,"disc":"-10,90","novo":false,"esgotado":false,"reviews":0},{"id":"157138","name":"Fonte Gamemax RGB-1050PRO 1050W 80+ Gold, Modular, ARGB","cat":"fontes-de-alimentacao-standard","brand":"Gamemax","img":"https://www.elitedigital.pt/806630-home_default/fonte-gamemax-rgb-1050pro-1050w-80-gold-modular-argb.jpg","url":"https://www.elitedigital.pt/fontes-de-alimentacao-standard/157138-fonte-gamemax-rgb-1050pro-1050w-80-gold-modular-argb.html","price":"149,90 €","val":149.9,"disc":null,"novo":false,"esgotado":true,"reviews":0}],"collections":[{"key":"gaming","pt_title":"Desktops Gaming","en_title":"Gaming Desktops","pt_sub":"Máquinas INSYS .FORCE e PbA montadas e testadas em Portugal.","en_sub":"INSYS .FORCE and PbA rigs, assembled and tested in Portugal.","href":"categoria.html?c=desktops-gaming","ids":["353782","363938","348498","365551","244772","228662"]},{"key":"portateis","pt_title":"Portáteis","en_title":"Laptops","pt_sub":"Empresariais e standard para trabalho, escola e mobilidade.","en_sub":"Business and standard laptops for work, school and mobility.","href":"categoria.html?c=portateis-empresariais","ids":["347458","366919","366929","355565","347622","369371","369365","347629","214700","156447"]},{"key":"graficas","pt_title":"Placas Gráficas","en_title":"Graphics Cards","pt_sub":"RTX, Radeon e soluções profissionais — do 1080p ao 4K.","en_sub":"RTX, Radeon and professional cards — from 1080p to 4K.","href":"categoria.html?c=placas-graficas-internas","ids":["364104","364817","364840","234855","364813","28264","223356","158256","366715"]},{"key":"componentes","pt_title":"Componentes","en_title":"Components","pt_sub":"Motherboards, CPUs, memória e armazenamento para o teu build.","en_sub":"Motherboards, CPUs, memory and storage for your build.","href":"categoria.html?c=placas-mae-desktops","ids":["1076","365434","369360","201010","355772","369368","849"]},{"key":"monitores","pt_title":"Monitores","en_title":"Monitors","pt_sub":"Alta taxa de atualização para jogo, edição e produtividade.","en_sub":"High refresh rate panels for gaming, editing and productivity.","href":"categoria.html?c=monitores-lcd","ids":["60274","24355","8859","8852","363911"]},{"key":"mobilidade","pt_title":"Tablets & Mobilidade","en_title":"Tablets & Mobile","pt_sub":"Tablets, smartphones e telemóveis com garantia nacional.","en_sub":"Tablets, smartphones and feature phones with local warranty.","href":"categoria.html?c=tablets-standard","ids":["203264","228778","228779","369378","265","345690","228962","162033","161919"]},{"key":"caixas","pt_title":"Caixas, Fontes & Refrigeração","en_title":"Cases, PSUs & Cooling","pt_sub":"A base de qualquer build: airflow, silêncio e estética.","en_sub":"The base of any build: airflow, silence and looks.","href":"categoria.html?c=caixas-de-computador","ids":["26991","366538","241207","1449","241021","241204","366543","27005","241379","679"]}],"heroIds":["363938","244772","364104","60274"],"catNames":{"desktops-gaming":["Gaming","Gaming"],"portateis-empresariais":["Portáteis","Laptops"],"portateis-standard":["Portáteis","Laptops"],"portateis-gaming":["Portáteis","Laptops"],"placas-graficas-internas":["Componentes","Components"],"placas-mae-desktops":["Componentes","Components"],"processadores-desktop":["Componentes","Components"],"memoria-desktops":["Componentes","Components"],"discos-internos-ssd":["Componentes","Components"],"monitores-lcd":["Monitores","Monitors"],"caixas-de-computador":["Caixas & Modding","Cases & Modding"],"refrigeracao-desktops":["Caixas & Modding","Cases & Modding"],"refrigeracao-modding":["Caixas & Modding","Cases & Modding"],"fontes-de-alimentacao-standard":["Caixas & Modding","Cases & Modding"],"tablets-standard":["Mobilidade","Mobile"],"smartphones":["Mobilidade","Mobile"],"telemoveis":["Mobilidade","Mobile"],"desktops-compactos":["Desktops","Desktops"],"desktops-standard":["Desktops","Desktops"],"desktops-all-in-one":["Desktops","Desktops"],"desktops-thin-client":["Desktops","Desktops"],"ups-diversas":["Energia","Power"],"baterias-notebook":["Acessórios","Accessories"],"malas-e-mochilas-notebook":["Acessórios","Accessories"],"acessorios-armazenamento":["Acessórios","Accessories"]},"catLabels":{"desktops-gaming":["Desktops Gaming","Gaming Desktops"],"portateis-empresariais":["Portáteis Empresariais","Business Laptops"],"portateis-standard":["Portáteis Standard","Standard Laptops"],"portateis-gaming":["Portáteis Gaming","Gaming Laptops"],"placas-graficas-internas":["Placas Gráficas","Graphics Cards"],"placas-mae-desktops":["Motherboards","Motherboards"],"processadores-desktop":["Processadores","Processors"],"memoria-desktops":["Memória RAM","Memory"],"discos-internos-ssd":["SSD","SSD Storage"],"monitores-lcd":["Monitores","Monitors"],"caixas-de-computador":["Caixas de Computador","PC Cases"],"refrigeracao-desktops":["Refrigeração","Cooling"],"refrigeracao-modding":["Refrigeração & Modding","Cooling & Modding"],"fontes-de-alimentacao-standard":["Fontes de Alimentação","Power Supplies"],"tablets-standard":["Tablets","Tablets"],"smartphones":["Smartphones","Smartphones"],"telemoveis":["Telemóveis","Feature Phones"],"desktops-compactos":["Desktops Compactos","Compact Desktops"],"desktops-thin-client":["Thin Clients","Thin Clients"],"ups-diversas":["UPS & Energia","UPS & Power"],"baterias-notebook":["Baterias para Portáteis","Laptop Batteries"],"malas-e-mochilas-notebook":["Malas e Mochilas","Bags & Backpacks"],"acessorios-armazenamento":["Acessórios de Armazenamento","Storage Accessories"]}};
+
+</script>
+<script>
+/* ==========================================================================
+   ELITEDIGITAL · SPA — home + catálogo + ficha num único ficheiro
+   Router por hash: #/ · #/c/<categoria> · #/p/<id>
+   ========================================================================== */
+(function () {
+  'use strict';
+  var DATA = window.ED_DATA || { products: [], collections: [], heroIds: [], catNames: {}, catLabels: {} };
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+  /* ------------------------------------------------------------- i18n ---- */
+  var I18N = {
+    pt: {
+      search_ph: 'Procurar produtos, marcas, referências…', email_ph: 'o.teu@email.pt', account: 'A minha conta',
+      results: 'resultados', no_results: 'Sem resultados. Tenta outro termo.', add: 'Adicionar', added: 'adicionado ao carrinho',
+      stock_in: 'Disponível', stock_out: 'Esgotado', new: 'Novo', view: 'Ver produto', brand: 'Marca',
+      only_stock: 'Só com stock', with_disc: 'Com desconto', products_n: 'produtos', clear: 'Limpar filtros',
+      empty_title: 'Nenhum produto corresponde aos filtros', empty_sub: 'Alarga o intervalo de preço ou remove marcas.',
+      buy: 'Adicionar ao carrinho', buy_out: 'Sem stock', related: 'Também nesta categoria',
+      spec_from: 'Extraído do nome do produto', ref: 'Referência', cat: 'Categoria',
+      newsletter_ok: 'Subscrição registada — obrigado!', newsletter_err: 'Introduz um email válido.',
+      home: 'Início', catalogue: 'Catálogo', see_all: 'Ver tudo', collection: 'Coleção',
+      login_title: 'Entre na sua conta', login_sub: 'Aceda à sua conta PCZONE para acompanhar encomendas, desejos e checkout rápido.',
+      email_l: 'Email', pass_l: 'Palavra-passe', forgot: 'Esqueceu-se da sua password?', signin: 'Iniciar sessão',
+      no_account: 'Não tem uma conta?', create: 'Crie uma aqui', reg_title: 'Crie a sua conta', name_l: 'Nome',
+      reg_btn: 'Criar conta', have_account: 'Já tem conta?', signin_link: 'Inicie sessão',
+      err_email: 'Introduz um email válido.', err_pass: 'A palavra-passe deve ter 4+ caracteres.',
+      ok_login: 'Sessão iniciada — bem-vindo(a)!', ok_reg: 'Conta criada — bem-vindo(a) à PCZONE!',
+      ok_forgot: 'Link de recuperação enviado (protótipo).', account_l: 'Conta',
+      perk1: 'Acompanhar encomendas em tempo real', perk2: 'Lista de desejos sincronizada', perk3: 'Checkout mais rápido'
+    },
+    en: {
+      search_ph: 'Search products, brands, references…', email_ph: 'you@email.com', account: 'My account',
+      results: 'results', no_results: 'No results. Try another term.', add: 'Add', added: 'added to cart',
+      stock_in: 'In stock', stock_out: 'Out of stock', new: 'New', view: 'View product', brand: 'Brand',
+      only_stock: 'In stock only', with_disc: 'On sale', products_n: 'products', clear: 'Clear filters',
+      empty_title: 'No products match these filters', empty_sub: 'Widen the price range or remove brands.',
+      buy: 'Add to cart', buy_out: 'Out of stock', related: 'More in this category',
+      spec_from: 'Parsed from the product name', ref: 'Reference', cat: 'Category',
+      newsletter_ok: 'Subscription saved — thank you!', newsletter_err: 'Please enter a valid email.',
+      home: 'Home', catalogue: 'Catalogue', see_all: 'View all', collection: 'Collection',
+      login_title: 'Sign in to your account', login_sub: 'Sign in to your PCZONE account to track orders, wishlists and fast checkout.',
+      email_l: 'Email', pass_l: 'Password', forgot: 'Forgot your password?', signin: 'Sign in',
+      no_account: 'Don’t have an account?', create: 'Create one here', reg_title: 'Create your account', name_l: 'Name',
+      reg_btn: 'Create account', have_account: 'Already have an account?', signin_link: 'Sign in',
+      err_email: 'Please enter a valid email.', err_pass: 'Password must be 4+ characters.',
+      ok_login: 'Signed in — welcome!', ok_reg: 'Account created — welcome to PCZONE!',
+      ok_forgot: 'Recovery link sent (prototype).', account_l: 'Account',
+      perk1: 'Track orders in real time', perk2: 'Synced wishlist', perk3: 'Faster checkout'
+    }
+  };
+  var lang = localStorage.getItem('ed_lang') || 'pt';
+  function t(k) { return (I18N[lang] || {})[k] || I18N.pt[k] || k; }
+  function en() { return lang === 'en'; }
+
+  function applyLang() {
+    document.documentElement.lang = lang;
+    $$('[data-i18n-pt],[data-i18n-en]').forEach(function (el) {
+      var v = el.getAttribute('data-i18n-' + lang);
+      if (v == null) return;
+      if (el.tagName === 'INPUT') el.placeholder = v;
+      else if (el.getAttribute('data-i18n-html') != null) el.innerHTML = v;
+      else el.textContent = v;
+    });
+    $$('[data-i18n-attr]').forEach(function (el) {
+      var parts = el.getAttribute('data-i18n-attr').split(':');
+      var v = (I18N[lang] || {})[parts[1]] || I18N.pt[parts[1]];
+      if (v != null) el.setAttribute(parts[0], v);
+    });
+    $$('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'); });
+    localStorage.setItem('ed_lang', lang);
+  }
+
+  /* ---------------------------------------------------------- catálogo ---- */
+  var byId = {};
+  DATA.products.forEach(function (p) { byId[p.id] = p; });
+  function catLabel(c) { var n = DATA.catNames[c]; return n ? (en() ? n[1] : n[0]) : c.replace(/-/g, ' '); }
+  function catName(c) { var n = (DATA.catLabels || {})[c]; return n ? (en() ? n[1] : n[0]) : catLabel(c); }
+  function numPrice(str) {
+    if (str == null) return null;
+    var m = String(str).replace(/\s/g, '').replace('€', '').replace(/\.(?=\d{3}\b)/g, '').replace(',', '.');
+    var v = parseFloat(m); return isNaN(v) ? null : v;
+  }
+  function oldPrice(p) {
+    if (!p.disc) return '';
+    var cur = numPrice(p.price), d = numPrice(p.disc);
+    if (cur == null || d == null) return '';
+    return (cur - d).toFixed(2).replace('.', ',') + ' €';
+  }
+  var LINKP = function (id) { return '#/p/' + id; };
+  var LINKC = function (c) { return '#/c/' + c; };
+
+  /* ------------------------------------------------------- card de produto */
+  function cardHTML(p) {
+    var flags = '';
+    if (p.novo) flags += '<span class="flag new">' + t('new') + '</span>';
+    if (p.disc) flags += '<span class="flag off">' + esc(p.disc) + '</span>';
+    if (p.esgotado) flags += '<span class="flag out">' + t('stock_out') + '</span>';
+    return '<article class="pcard corner reveal" data-id="' + esc(p.id) + '">' +
+      '<div class="pcard-media"><span class="flags">' + flags + '</span>' +
+      '<span class="quick">' +
+      '<button type="button" data-act="wish" aria-label="wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.3-7-9.2A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.8C19 15.7 12 20 12 20Z"/></svg></button>' +
+      '<button type="button" data-act="cmp" aria-label="compare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h11l-3-3M20 17H9l3 3"/></svg></button></span>' +
+      '<a href="' + LINKP(p.id) + '" aria-label="' + esc(p.name) + '"><img loading="lazy" src="' + esc(p.img) + '" alt="' + esc(p.name) + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'grid\'"><span class="ph" style="display:none">sem imagem</span></a></div>' +
+      '<div class="pcard-body"><span class="pcat">' + esc(catLabel(p.cat)) + '</span>' +
+      '<h3 class="pname"><a href="' + LINKP(p.id) + '">' + esc(p.name) + '</a></h3>' +
+      '<div class="pmeta"><span class="stock' + (p.esgotado ? ' no' : '') + '"><i></i>' + (p.esgotado ? t('stock_out') : t('stock_in')) + '</span>' +
+      (p.reviews ? '<span class="rev">★ ' + p.reviews + '</span>' : '') + '</div>' +
+      '<div class="price-row"><div>' + (p.disc ? '<div class="price-old">' + esc(oldPrice(p)) + '</div>' : '') +
+      '<div class="price">' + esc((p.price || '').replace('€', '').trim()) + ' <span class="cur">€</span></div></div>' +
+      '<button class="add" type="button" data-act="add"' + (p.esgotado ? ' disabled' : '') + ' aria-label="' + t('add') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 5v14M5 12h14"/></svg></button>' +
+      '</div></div></article>';
+  }
+
+  /* ---------------------------------------------------------- carrinho ---- */
+  function cart() { try { return JSON.parse(localStorage.getItem('ed_cart') || '{}'); } catch (e) { return {}; } }
+  function cartCount() { var c = cart(); return Object.keys(c).reduce(function (n, k) { return n + c[k]; }, 0); }
+  function updateBadge() {
+    var n = cartCount();
+    $$('.cart-count').forEach(function (el) { el.textContent = n; el.style.display = n ? 'grid' : 'none'; });
+  }
+
+  /* ------------------------------------------------------------- toast ---- */
+  var toastEl;
+  function toast(msg) {
+    if (!toastEl) { toastEl = document.createElement('div'); toastEl.className = 'toast'; toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><span>' + esc(msg) + '</span>';
+    toastEl.classList.add('show');
+    clearTimeout(toast._t); toast._t = setTimeout(function () { toastEl.classList.remove('show'); }, 2400);
+  }
+
+  /* ------------------------------------------------------------ reveal ---- */
+  var io = null;
+  function observeReveal() {
+    if (!('IntersectionObserver' in window)) { $$('.reveal').forEach(function (el) { el.classList.add('in'); }); return; }
+    if (!io) io = new IntersectionObserver(function (es) { es.forEach(function (e2) { if (e2.isIntersecting) { e2.target.classList.add('in'); io.unobserve(e2.target); } }); }, { rootMargin: '0px 0px -6% 0px', threshold: 0.04 });
+    $$('.reveal:not(.in)').forEach(function (el) { io.observe(el); });
+  }
+
+  /* ================================================================ VISTAS */
+
+  var ICONS = {
+    game: '<path d="M7 12h4M9 10v4M16 11h.01M18 14h.01"/><rect x="2" y="7" width="20" height="11" rx="4"/>',
+    laptop: '<rect x="4" y="5" width="16" height="10" rx="1.5"/><path d="M2 19h20"/>',
+    gpu: '<rect x="2" y="7" width="20" height="11" rx="2"/><circle cx="8" cy="12.5" r="2.6"/><circle cx="15" cy="12.5" r="2.6"/>',
+    cpu: '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>',
+    monitor: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M9 20h6M12 16v4"/>',
+    case: '<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="8" r="2.2"/><path d="M9 14h6M9 17h6"/>',
+    tablet: '<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M11 18h2"/>',
+    power: '<path d="M13 3 5 14h5l-1 7 9-12h-5l1-6Z"/>',
+    ssd: '<rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 10v4M11 10v4M15 10v4"/>',
+    grid: '<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/>'
+  };
+  var CAT_TILES = [
+    { c: 'desktops-gaming', ico: 'game', pt: 'Desktops Gaming', en: 'Gaming Desktops', dpt: 'INSYS .FORCE & PbA', den: 'INSYS .FORCE & PbA' },
+    { c: 'portateis-empresariais', ico: 'laptop', pt: 'Portáteis', en: 'Laptops', dpt: 'Empresariais e standard', den: 'Business & standard' },
+    { c: 'placas-graficas-internas', ico: 'gpu', pt: 'Placas Gráficas', en: 'Graphics Cards', dpt: 'NVIDIA & Radeon', den: 'NVIDIA & Radeon' },
+    { c: 'placas-mae-desktops', ico: 'cpu', pt: 'Componentes', en: 'Components', dpt: 'CPU · RAM · Boards', den: 'CPU · RAM · Boards' },
+    { c: 'monitores-lcd', ico: 'monitor', pt: 'Monitores', en: 'Monitors', dpt: 'Até 240 Hz', den: 'Up to 240 Hz' },
+    { c: 'caixas-de-computador', ico: 'case', pt: 'Caixas & Fontes', en: 'Cases & PSUs', dpt: 'Airflow e silêncio', den: 'Airflow and silence' },
+    { c: 'tablets-standard', ico: 'tablet', pt: 'Mobilidade', en: 'Mobile', dpt: 'Tablets e telemóveis', den: 'Tablets & phones' },
+    { c: 'ups-diversas', ico: 'power', pt: 'Energia & UPS', en: 'Power & UPS', dpt: 'Proteção elétrica', den: 'Power protection' },
+    { c: 'discos-internos-ssd', ico: 'ssd', pt: 'Armazenamento', en: 'Storage', dpt: 'SSD NVMe e HDD', den: 'NVMe SSD & HDD' },
+    { c: '', ico: 'grid', pt: 'Tudo', en: 'Everything', dpt: 'Catálogo completo', den: 'Full catalogue' }
+  ];
+
+  /* ------------------------------------------------------------ HOME ------ */
+  function viewHome() {
+    $('#view').innerHTML =
+      '<section class="hero"><div class="wrap hero-grid"><div>' +
+      '<span class="eyebrow" data-i18n-pt="Loja online oficial · Aveiro, Portugal" data-i18n-en="Official online store · Aveiro, Portugal"></span>' +
+      '<h1><span data-i18n-pt="Tecnologia" data-i18n-en="Technology"></span><br><em data-i18n-pt="sem compromisso." data-i18n-en="without compromise."></em></h1>' +
+      '<p class="hero-lead" data-i18n-pt="Desktops montados em Portugal, componentes selecionados e assistência técnica própria. Do primeiro periférico ao servidor da empresa — com quem percebe disto há mais de 30 anos." data-i18n-en="Desktops assembled in Portugal, hand-picked components and in-house technical support. From your first peripheral to the company server — with people who have done this for 30+ years."></p>' +
+      '<div class="hero-cta"><a class="btn btn-primary" href="#/c/desktops-gaming"><span data-i18n-pt="Ver desktops gaming" data-i18n-en="Shop gaming desktops"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>' +
+      '<button class="btn btn-ghost" type="button" data-toggle="search"><span data-i18n-pt="Procurar no catálogo" data-i18n-en="Search the catalogue"></span></button></div>' +
+      '<div class="hero-stats">' +
+      '<div class="stat"><div class="n">30<b>+</b></div><div class="l" data-i18n-pt="Anos de experiência" data-i18n-en="Years of experience"></div></div>' +
+      '<div class="stat"><div class="n" id="stat-sku"></div><div class="l" data-i18n-pt="Referências em destaque" data-i18n-en="Featured references"></div></div>' +
+      '<div class="stat"><div class="n">24<b>h</b></div><div class="l" data-i18n-pt="Expedição em stock" data-i18n-en="Dispatch when in stock"></div></div>' +
+      '<div class="stat"><div class="n">2<b>anos</b></div><div class="l" data-i18n-pt="Garantia legal" data-i18n-en="Legal warranty"></div></div></div></div>' +
+      '<aside class="hud reveal" aria-label="Destaques"><div class="hud-bar"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="lbl">ED://SYSTEM</span></div>' +
+      '<div class="hud-body"><div class="hud-row"><span>STOCK</span><span id="hud-stock"></span></div>' +
+      '<div class="hud-row"><span>ENVIOS</span><span>24H</span><span class="bar"><i style="width:88%"></i></span></div>' +
+      '<div class="hud-row"><span>SUPORTE</span><span>ON</span><span class="bar"><i style="width:100%"></i></span></div>' +
+      '<div class="hud-grid"><div class="hud-cell"><div class="k">CPU</div><div class="v">i7-14700KF</div></div><div class="hud-cell"><div class="k">GPU</div><div class="v">RTX 4080S</div></div><div class="hud-cell"><div class="k">RAM</div><div class="v">32 GB</div></div></div>' +
+      '<div class="hud-row" style="margin-top:.2rem"><span>BUILD .FORCE GAMER PRO</span><span id="hud-price"></span></div></div><div class="scan" aria-hidden="true"></div></aside>' +
+      '</div></section>' +
+      '<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>' +
+      '<section class="wrap sec"><div class="grid" id="hero-products"></div></section>' +
+      '<section class="wrap"><div class="sec-head reveal"><div><span class="eyebrow" data-i18n-pt="Catálogo" data-i18n-en="Catalogue"></span><h2 data-i18n-pt="Escolhe o teu território" data-i18n-en="Pick your territory"></h2></div>' +
+      '<a class="btn btn-quiet btn-sm" href="#/c"><span data-i18n-pt="Ver tudo" data-i18n-en="View all"></span></a></div><div class="cat-grid reveal" id="cat-grid"></div></section>' +
+      '<div id="collections"></div>' +
+      '<section class="wrap sec" id="servicos"><div class="sec-head reveal"><div>' +
+      '<span class="eyebrow" data-i18n-pt="Além da venda" data-i18n-en="Beyond the sale"></span>' +
+      '<h2 data-i18n-pt="Serviços que resolvem" data-i18n-en="Services that solve it"></h2>' +
+      '<p class="sub" data-i18n-pt="Técnicos próprios, peças originais e diagnóstico sem compromisso em qualquer loja da rede." data-i18n-en="In-house technicians, genuine parts and a no-obligation diagnosis at any store in the network."></p></div></div>' +
+      '<div class="svc">' + svcCards() + '</div></section>' +
+      '<section class="wrap"><div class="trust reveal">' +
+      trustItem('truck', 'Envio em 24h', '24h dispatch', 'Para artigos com stock confirmado', 'On confirmed in-stock items') +
+      trustItem('shield', '2 anos de garantia', '2-year warranty', 'Garantia legal em todo o equipamento', 'Legal warranty on all equipment') +
+      trustItem('check', '14 dias para devolver', '14-day returns', 'Devolução simples e sem burocracia', 'Simple, no-hassle returns') +
+      trustItem('phone', 'Apoio humano', 'Human support', '+351 234 340 871 · dias úteis', '+351 234 340 871 · weekdays') +
+      '</div></section>' +
+      '<section class="wrap sec"><div class="cta reveal"><div>' +
+      '<span class="eyebrow" data-i18n-pt="Newsletter" data-i18n-en="Newsletter"></span>' +
+      '<h2 style="margin-top:.7rem" data-i18n-pt="Campanhas, folhetos e stock — antes de toda a gente." data-i18n-en="Campaigns, leaflets and stock — before anyone else."></h2>' +
+      '<p class="muted" style="margin-top:.7rem;max-width:46ch" data-i18n-pt="Um email por semana. Sem spam, cancelas quando quiseres." data-i18n-en="One email a week. No spam, unsubscribe anytime."></p></div>' +
+      '<form class="news" novalidate><input type="email" aria-label="Email" data-i18n-attr="placeholder:email_ph">' +
+      '<button class="btn btn-primary" type="submit"><span data-i18n-pt="Subscrever" data-i18n-en="Subscribe"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>' +
+      '<p class="news-msg" style="flex-basis:100%"></p></form></div></section>';
+
+    /* --- preencher dinâmico --- */
+    var stock = DATA.products.filter(function (p) { return !p.esgotado; }).length;
+    $('#stat-sku').textContent = DATA.products.length;
+    $('#hud-stock').textContent = stock + '/' + DATA.products.length;
+    var feat = byId['244772'] || byId[(DATA.heroIds || [])[0]];
+    if (feat) $('#hud-price').textContent = feat.price;
+
+    var words = ['INSYS', 'ASUS', 'INTEL', 'AMD', 'NVIDIA', 'GAMING', 'PORTÁTEIS', 'MONITORES', 'COMPONENTES', 'ASSISTÊNCIA TÉCNICA', 'GARANTIA 2 ANOS', 'ENVIO 24H'];
+    var half = words.map(function (w) { return '<span>' + w + '</span><b>✦</b>'; }).join('');
+    $('#ticker').innerHTML = half + half;
+
+    var hero = (DATA.heroIds || []).map(function (id) { return byId[id]; }).filter(Boolean);
+    if (!hero.length) hero = DATA.products.slice(0, 4);
+    $('#hero-products').innerHTML = hero.map(cardHTML).join('');
+
+    $('#cat-grid').innerHTML = CAT_TILES.map(function (c) {
+      return '<a class="cat" href="' + (c.c ? LINKC(c.c) : '#/c') + '"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + ICONS[c.ico] + '</svg></span>' +
+        '<span class="t">' + esc(en() ? c.en : c.pt) + '</span><span class="d">' + esc(en() ? c.den : c.dpt) + '</span>' +
+        '<span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>';
+    }).join('');
+
+    $('#collections').innerHTML = DATA.collections.map(function (col) {
+      var items = col.ids.map(function (id) { return byId[id]; }).filter(Boolean);
+      if (!items.length) return '';
+      var rid = 'rail-' + col.key;
+      return '<section class="wrap sec"><div class="sec-head reveal"><div><span class="eyebrow">' + t('collection') + '</span>' +
+        '<h2>' + esc(en() ? col.en_title : col.pt_title) + '</h2><p class="sub">' + esc(en() ? col.en_sub : col.pt_sub) + '</p></div>' +
+        '<div style="display:flex;gap:.45rem;align-items:center"><a class="btn btn-quiet btn-sm" href="' + LINKC(col.href.split('c=')[1] || '') + '">' + t('see_all') + '</a>' +
+        '<div class="carousel-nav"><button class="icon-btn" type="button" data-scroll="prev" data-target="#' + rid + '" aria-label="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>' +
+        '<button class="icon-btn" type="button" data-scroll="next" data-target="#' + rid + '" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></div></div></div>' +
+        '<div class="rail" id="' + rid + '">' + items.map(cardHTML).join('') + '</div></section>';
+    }).join('');
+
+    applyLang();
+    observeReveal();
+  }
+
+  function svcCards() {
+    var S = [
+      ['<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.1-2.1 2.7-2.5Z"/>', 'Assistência técnica', 'Technical support', 'Diagnóstico, reparação e manutenção de computadores e portáteis de todas as marcas.', 'Diagnosis, repair and maintenance of computers and laptops from every brand.', 'Pedir diagnóstico', 'Request a diagnosis'],
+      ['<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>', 'Ecrãs e baterias', 'Screens & batteries', 'Substituição de ecrãs e baterias de portáteis e telemóveis, com peças originais.', 'Screen and battery replacement for laptops and phones, using genuine parts.', 'Consultar preços', 'Check prices'],
+      ['<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>', 'Assistência remota', 'Remote assistance', 'Resolução à distância em minutos, sem deslocações nem envios.', 'Fixed remotely in minutes — no trips, no shipping.', 'Iniciar sessão remota', 'Start remote session'],
+      ['<path d="M12 3 5 6v6c0 4.4 3 8.1 7 9 4-.9 7-4.6 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>', 'Seguros e garantias', 'Insurance & warranty', 'Garantia extra, seguro de danos e roubo para o teu equipamento.', 'Extended warranty, damage and theft cover for your equipment.', 'Simular seguro', 'Get a quote'],
+      ['<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9zM2 9h2M2 15h2M20 9h2M20 15h2M9 2v2M15 2v2M9 20v2M15 20v2"/>', 'Configurações à medida', 'Custom builds', 'Montamos o PC certo para jogo, edição, CAD ou escritório — testado antes de sair.', 'We build the right PC for gaming, editing, CAD or office work — tested before it ships.', 'Pedir configuração', 'Request a build'],
+      ['<path d="M3 7h13v10H3zM16 10h3l2 3v4h-5"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/>', 'Encomenda de peças', 'Parts ordering', 'Peças para portáteis, telemóveis e equipamento profissional por encomenda.', 'Parts for laptops, phones and professional equipment, made to order.', 'Procurar peça', 'Find a part']
+    ];
+    return S.map(function (s) {
+      return '<article class="svc-card reveal"><div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">' + s[0] + '</svg></div>' +
+        '<h3 data-i18n-pt="' + esc(s[1]) + '" data-i18n-en="' + esc(s[2]) + '"></h3>' +
+        '<p data-i18n-pt="' + esc(s[3]) + '" data-i18n-en="' + esc(s[4]) + '"></p>' +
+        '<a class="link" href="https://www.elitedigital.pt/contacte-nos" data-i18n-pt="' + esc(s[5]) + '" data-i18n-en="' + esc(s[6]) + '"></a></article>';
+    }).join('');
+  }
+  function trustItem(ico, pt, enT, dpt, den) {
+    var I = {
+      truck: '<path d="M3 7h13v10H3zM16 10h3l2 3v4h-5"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/>',
+      shield: '<path d="M12 3 5 6v6c0 4.4 3 8.1 7 9 4-.9 7-4.6 7-9V6l-7-3Z"/>',
+      check: '<path d="M20 6 9 17l-5-5"/>',
+      phone: '<path d="M6 3h3l2 5-2.4 1.6a12 12 0 0 0 5.8 5.8L16 13l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3Z"/>'
+    };
+    return '<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">' + I[ico] + '</svg><div><b data-i18n-pt="' + esc(pt) + '" data-i18n-en="' + esc(enT) + '"></b><span data-i18n-pt="' + esc(dpt) + '" data-i18n-en="' + esc(den) + '"></span></div></div>';
+  }
+
+  /* -------------------------------------------------------- CATEGORIA ----- */
+  var META = {
+    'desktops-gaming': ['Desktops Gaming', 'Gaming Desktops', 'Máquinas montadas e testadas em Portugal, prontas a jogar.', 'Rigs assembled and tested in Portugal, ready to play.'],
+    'portateis-empresariais': ['Portáteis Empresariais', 'Business Laptops', 'Fiabilidade, autonomia e gestão para equipas.', 'Reliability, battery life and manageability for teams.'],
+    'placas-graficas-internas': ['Placas Gráficas', 'Graphics Cards', 'GeForce, Radeon e soluções profissionais para qualquer resolução.', 'GeForce, Radeon and professional cards for any resolution.'],
+    'placas-mae-desktops': ['Motherboards', 'Motherboards', 'A base do build: sockets AM5, LGA1700 e formatos ATX a Mini-ITX.', 'The base of your build: AM5, LGA1700 and ATX to Mini-ITX.'],
+    'processadores-desktop': ['Processadores', 'Processors', 'Intel Core e AMD Ryzen, do escritório ao multithread pesado.', 'Intel Core and AMD Ryzen, from office work to heavy multithread.'],
+    'monitores-lcd': ['Monitores', 'Monitors', 'Painéis curvos e planos, de 100 Hz a 240 Hz, para jogo e trabalho.', 'Curved and flat panels, from 100 Hz to 240 Hz, for gaming and work.'],
+    'caixas-de-computador': ['Caixas de Computador', 'PC Cases', 'Airflow, silêncio e vidro temperado para mostrar o build.', 'Airflow, silence and tempered glass to show off your build.'],
+    'tablets-standard': ['Tablets', 'Tablets', 'Para escola, casa e mobilidade — com acessórios incluídos.', 'For school, home and mobility — accessories included.']
+  };
+  var F = { cats: new Set(), brands: new Set(), min: null, max: null, stock: false, disc: false, sort: 'rel' };
+
+  function catMeta(c) {
+    var m = META[c];
+    if (m) return { t: en() ? m[1] : m[0], s: en() ? m[3] : m[2] };
+    if (c && (DATA.catLabels || {})[c]) { var l = catName(c); return { t: l, s: en() ? 'Every reference we list in this category.' : 'Todas as referências que temos nesta categoria.' }; }
+    return { t: en() ? 'Full catalogue' : 'Catálogo completo', s: en() ? 'Every reference in this prototype — filter by brand, price and availability.' : 'Todas as referências deste protótipo — filtra por marca, preço e disponibilidade.' };
+  }
+
+  function viewCat(slug) {
+    F.cats = slug ? new Set([slug]) : new Set();
+    F.brands.clear(); F.min = F.max = null; F.stock = F.disc = false;
+    var m = catMeta(slug);
+    document.title = m.t + ' — PCZONE';
+
+    $('#view').innerHTML =
+      '<div class="wrap"><nav class="crumb" aria-label="breadcrumb"><a href="#/">' + t('home') + '</a><span>/</span><a href="#/c">' + t('catalogue') + '</a><span>/</span><span id="crumb-cat">' + esc(m.t) + '</span></nav></div>' +
+      '<header class="page-head"><div class="wrap"><span class="eyebrow" data-i18n-pt="Catálogo" data-i18n-en="Catalogue"></span><h1>' + esc(m.t) + '</h1><p class="sub">' + esc(m.s) + '</p></div></header>' +
+      '<div class="wrap cat-layout"><aside class="filters" aria-label="filters">' +
+      '<div class="fgroup"><h3 data-i18n-pt="Categoria" data-i18n-en="Category"></h3><div id="f-cats"></div></div>' +
+      '<div class="fgroup"><h3 data-i18n-pt="Marca" data-i18n-en="Brand"></h3><div id="f-brands"></div></div>' +
+      '<div class="fgroup"><h3 data-i18n-pt="Preço (€)" data-i18n-en="Price (€)"></h3><div class="price-range"><input id="p-min" type="number" min="0" placeholder="mín"><span>—</span><input id="p-max" type="number" min="0" placeholder="máx"></div></div>' +
+      '<div class="fgroup"><h3 data-i18n-pt="Disponibilidade" data-i18n-en="Availability"></h3>' +
+      '<label class="chip"><input type="checkbox" id="f-stock"><span data-i18n-pt="Só com stock" data-i18n-en="In stock only"></span></label>' +
+      '<label class="chip"><input type="checkbox" id="f-disc"><span data-i18n-pt="Com desconto" data-i18n-en="On sale"></span></label></div>' +
+      '<button class="btn btn-ghost btn-sm" id="f-clear" style="width:100%" data-i18n-pt="Limpar filtros" data-i18n-en="Clear filters"></button></aside>' +
+      '<section><div class="toolbar"><p class="count"><b id="res-n">0</b> <span id="res-l">' + t('products_n') + '</span></p>' +
+      '<div class="active-filters" id="active-filters"></div>' +
+      '<label class="sortsel"><span data-i18n-pt="Ordenar" data-i18n-en="Sort"></span><select id="sort">' +
+      '<option value="rel">' + t('sort_rel') + '</option><option value="asc">' + t('sort_asc') + '</option><option value="desc">' + t('sort_desc') + '</option><option value="new">' + t('sort_new') + '</option><option value="rev">' + t('sort_rev') + '</option></select></label></div>' +
+      '<div class="grid" id="results"></div>' +
+      '<div class="empty" id="empty" hidden><h3>' + t('empty_title') + '</h3><p style="margin-top:.5rem">' + t('empty_sub') + '</p></div></section></div>';
+
+    bindCat();
+    applyLang();
+    observeReveal();
+  }
+
+  function catMatch(p) {
+    if (F.cats.size && !F.cats.has(p.cat)) return false;
+    if (F.brands.size && !F.brands.has(p.brand)) return false;
+    if (F.stock && p.esgotado) return false;
+    if (F.disc && !p.disc) return false;
+    if (F.min != null && p.val < F.min) return false;
+    if (F.max != null && p.val > F.max) return false;
+    return true;
+  }
+  function catVisible() {
+    var base = F.cats.size ? DATA.products.filter(function (p) { return F.cats.has(p.cat); }) : DATA.products.slice();
+    var list = base.filter(catMatch);
+    switch (F.sort) {
+      case 'asc': list.sort(function (a, b) { return a.val - b.val; }); break;
+      case 'desc': list.sort(function (a, b) { return b.val - a.val; }); break;
+      case 'new': list.sort(function (a, b) { return (b.novo ? 1 : 0) - (a.novo ? 1 : 0); }); break;
+      case 'rev': list.sort(function (a, b) { return b.reviews - a.reviews; }); break;
+      default: list.sort(function (a, b) { return (b.esgotado ? 1 : 0) - (a.esgotado ? 1 : 0); });
+    }
+    return list;
+  }
+  function catChip(kind, val, label, cnt, checked) {
+    return '<label class="chip"><input type="checkbox" data-kind="' + kind + '" value="' + esc(val) + '"' + (checked ? ' checked' : '') + '><span>' + esc(label) + '</span><span class="cnt">' + cnt + '</span></label>';
+  }
+  function renderCatFilters() {
+    var cats = {};
+    DATA.products.forEach(function (p) { cats[p.cat] = (cats[p.cat] || 0) + 1; });
+    $('#f-cats').innerHTML = Object.keys(cats).sort(function (a, b) { return cats[b] - cats[a]; })
+      .map(function (c) { return catChip('cat', c, catName(c), cats[c], F.cats.has(c)); }).join('');
+
+    var pool = F.cats.size ? DATA.products.filter(function (p) { return F.cats.has(p.cat); }) : DATA.products;
+    var brands = {};
+    pool.forEach(function (x) { brands[x.brand] = (brands[x.brand] || 0) + 1; });
+    $('#f-brands').innerHTML = Object.keys(brands).sort().map(function (b) { return catChip('brand', b, b, brands[b], F.brands.has(b)); }).join('');
+
+    var pills = [];
+    F.cats.forEach(function (c) { pills.push(['cat', c, catName(c)]); });
+    F.brands.forEach(function (b) { pills.push(['brand', b, b]); });
+    if (F.stock) pills.push(['stock', '1', t('only_stock')]);
+    if (F.disc) pills.push(['disc', '1', t('with_disc')]);
+    if (F.min != null) pills.push(['min', F.min, '≥ ' + F.min + ' €']);
+    if (F.max != null) pills.push(['max', F.max, '≤ ' + F.max + ' €']);
+    $('#active-filters').innerHTML = pills.map(function (x) {
+      return '<button class="pill" type="button" data-remove="' + x[0] + '" data-value="' + esc(x[1]) + '">' + esc(x[2]) + ' ✕</button>';
+    }).join('');
+  }
+  function renderCatGrid() {
+    var list = catVisible();
+    $('#res-n').textContent = list.length;
+    $('#res-l').textContent = t('products_n');
+    $('#results').innerHTML = list.map(cardHTML).join('');
+    $('#empty').hidden = list.length > 0;
+    $$('#results .reveal').forEach(function (el) { el.classList.add('in'); });
+  }
+  function bindCat() {
+    renderCatFilters(); renderCatGrid();
+    $('#view').addEventListener('change', function (e) {
+      var box = e.target.closest('input[data-kind]');
+      if (!box) return;
+      var set = box.dataset.kind === 'cat' ? F.cats : F.brands;
+      if (box.checked) set.add(box.value); else set.delete(box.value);
+      renderCatFilters(); renderCatGrid();
+    });
+    $('#view').addEventListener('click', function (e) {
+      var rm = e.target.closest('[data-remove]');
+      if (!rm) return;
+      var k = rm.dataset.remove, v = rm.dataset.value;
+      if (k === 'cat') F.cats.delete(v);
+      else if (k === 'brand') F.brands.delete(v);
+      else if (k === 'stock') { F.stock = false; var a = $('#f-stock'); if (a) a.checked = false; }
+      else if (k === 'disc') { F.disc = false; var b = $('#f-disc'); if (b) b.checked = false; }
+      else if (k === 'min') { F.min = null; $('#p-min').value = ''; }
+      else if (k === 'max') { F.max = null; $('#p-max').value = ''; }
+      renderCatFilters(); renderCatGrid();
+    });
+    $('#f-stock').addEventListener('change', function () { F.stock = this.checked; renderCatFilters(); renderCatGrid(); });
+    $('#f-disc').addEventListener('change', function () { F.disc = this.checked; renderCatFilters(); renderCatGrid(); });
+    $('#sort').addEventListener('change', function () { F.sort = this.value; renderCatGrid(); });
+    ['p-min', 'p-max'].forEach(function (id) {
+      $('#' + id).addEventListener('input', function () {
+        var v = this.value === '' ? null : parseFloat(this.value);
+        if (id === 'p-min') F.min = v; else F.max = v;
+        renderCatFilters(); renderCatGrid();
+      });
+    });
+    $('#f-clear').addEventListener('click', function () {
+      F.cats.clear(); F.brands.clear(); F.min = F.max = null; F.stock = F.disc = false;
+      location.hash = '#/c';
+      viewCat('');
+    });
+  }
+
+  /* ---------------------------------------------------------- PRODUTO ----- */
+  function specsFor(p) {
+    var n = ' ' + p.name.replace(/\|/g, ' ') + ' ';
+    var out = [], m;
+    var add = function (pt, e2, v) { if (v) out.push([pt, e2, v]); };
+    m = n.match(/(Intel\s+)?(Core\s+Ultra\s+\d[^,\s]*|(?:Core\s+)?i[3579]-\d{4,5}[A-Z]{0,3}|Ryzen\s+[3579]\s+PRO\s+\d{4}[A-Z]?|Ryzen\s+[3579]\s+\d{4}[A-Z]{0,2}|Pentium\s+[A-Z0-9\-]+|Intel\s+N\d{2,3})/i);
+    add('Processador', 'Processor', m ? m[0].trim() : '');
+    m = n.match(/(GeForce\s+)?(RTX\s?[0-9]{4}\s?[A-Z]{0,2}|GTX\s?1?[0-9]{3}\s?[A-Z]{0,2}|RX\s?[0-9]{4}\s?[A-Z]{0,2}|Radeon\s+Graphics|GT\s?10[0-9]{2}|Intel\s+Arc\s+Graphics\s+\d+[A-Z]?)/i);
+    add('Placa gráfica', 'Graphics', m ? m[0].trim() : '');
+    m = n.match(/(\d{1,3})\s?GB\s?(?:de\s+)?(RAM|LPDDR\d[A-Z]*|DDR\d[A-Z]*)/i);
+    add('Memória', 'Memory', m ? m[1] + ' GB' : '');
+    m = n.match(/(\d{1,4})\s?GB\s+(?:SSD|NVMe)/i) || n.match(/(\d(?:[.,]\d)?)\s?TB/);
+    if (m) add('Armazenamento', 'Storage', m[0].match(/TB/i) ? m[1] + ' TB' : m[1] + ' GB');
+    m = n.match(/(\d{1,2}(?:[.,]\d)?)\s?(?:polegadas|p\b|")/i);
+    add('Ecrã', 'Display size', m ? m[1].replace(',', '.') + '"' : '');
+    m = n.match(/(FHD|QHD|UHD|4K|Full HD|2K)/i);
+    add('Resolução', 'Resolution', m ? m[1] : '');
+    m = n.match(/(\d{2,3})\s?Hz/i);
+    add('Taxa de atualização', 'Refresh rate', m ? m[1] + ' Hz' : '');
+    m = n.match(/\b(ATX|Micro-ATX|Mini-ITX|E-ATX|Full Tower|SFF|NUC)\b/);
+    add('Formato', 'Form factor', m ? m[1] : '');
+    m = n.match(/\b(Skt\s?1[0-9]{3}|Skt\s?AM\d|LGA\s?1[0-9]{3}|AM\d)\b/i);
+    add('Socket', 'Socket', m ? m[1] : '');
+    m = n.match(/(Windows\s?1[01]\s?Pro|Windows\s?1[01]|W11\s?Pro|W11|Linux|Android(?:\s?\d+)?(?:\s?Go)?)/i);
+    add('Sistema operativo', 'Operating system', m ? m[0].trim() : '');
+    return out;
+  }
+
+  function viewProduct(id) {
+    var P = byId[id];
+    if (!P) { location.hash = '#/'; return; }
+    document.title = P.name + ' — PCZONE';
+    var specs = specsFor(P);
+
+    $('#view').innerHTML =
+      '<div class="wrap"><nav class="crumb" aria-label="breadcrumb"><a href="#/">' + t('home') + '</a><span>/</span><a href="#/c">' + t('catalogue') + '</a><span>/</span><a href="' + LINKC(P.cat) + '">' + esc(catName(P.cat)) + '</a><span>/</span><span>' + esc(P.name.slice(0, 44)) + '…</span></nav></div>' +
+      '<div class="wrap pd-layout"><div class="pd-media reveal"><div class="pd-main"><img id="pd-img" src="' + esc(P.img) + '" alt="' + esc(P.name) + '" onerror="this.style.display=\'none\';document.getElementById(\'pd-ph\').style.display=\'grid\'"><span class="ph" id="pd-ph" style="display:none">sem imagem</span></div>' +
+      '<div class="pd-thumbs">' + [0, 1, 2].map(function (i) { return '<div class="' + (i === 0 ? 'on' : '') + '"><img loading="lazy" src="' + esc(P.img) + '" alt=""></div>'; }).join('') + '</div></div>' +
+      '<div><span class="eyebrow">' + esc(catLabel(P.cat)) + '</span><h1 class="pd-title">' + esc(P.name) + '</h1>' +
+      '<div class="pd-sub"><span>' + esc(P.brand) + '</span><span>·</span><span><span data-i18n-pt="Ref." data-i18n-en="Ref."></span> ' + esc(P.id) + '</span><span>·</span><span class="stock' + (P.esgotado ? ' no' : '') + '"><i></i>' + (P.esgotado ? t('stock_out') : t('stock_in')) + '</span></div>' +
+      '<div class="pd-buy"><div>' + (P.disc ? '<div class="pd-price-old">' + esc(oldPrice(P)) + '</div>' : '') +
+      '<div class="pd-price">' + esc((P.price || '').replace('€', '').trim()) + ' <span class="cur">€</span></div>' +
+      '<p class="tiny muted" style="margin-top:.5rem" data-i18n-pt="IVA incluído à taxa legal · Envio grátis acima de 150 €" data-i18n-en="VAT included at the legal rate · Free shipping over €150"></p></div>' +
+      '<div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap">' +
+      '<div class="qty" aria-label="qty"><button type="button" data-qty="-1" aria-label="−">−</button><input id="qty" value="1" inputmode="numeric" aria-label="qty"><button type="button" data-qty="1" aria-label="+">+</button></div>' +
+      '<button class="btn btn-primary" type="button" id="pd-add" data-act="add" data-id="' + esc(P.id) + '"' + (P.esgotado ? ' disabled' : '') + '>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 5v14M5 12h14"/></svg><span>' + (P.esgotado ? t('buy_out') : t('buy')) + '</span></button>' +
+      '<a class="btn btn-ghost" href="' + esc(P.url) + '" target="_blank" rel="noopener"><span data-i18n-pt="Ver na loja atual" data-i18n-en="View on live site"></span></a></div></div>' +
+      '<div class="specs">' + [[t('cat'), catName(P.cat)], [t('brand'), P.brand], [t('ref'), P.id]].concat(specs.map(function (s) { return [en() ? s[1] : s[0], s[2]]; }))
+        .map(function (r) { return '<div class="specs-row"><span class="k">' + esc(r[0]) + '</span><span>' + esc(r[1]) + '</span></div>'; }).join('') + '</div>' +
+      '<div class="tabs" role="tablist">' +
+      '<button role="tab" aria-selected="true" data-panel="p-desc" data-i18n-pt="Descrição" data-i18n-en="Description"></button>' +
+      '<button role="tab" aria-selected="false" data-panel="p-spec" data-i18n-pt="Especificações" data-i18n-en="Specifications"></button>' +
+      '<button role="tab" aria-selected="false" data-panel="p-ship" data-i18n-pt="Entrega & Garantia" data-i18n-en="Shipping & Warranty"></button></div>' +
+      '<div class="tabpanel" id="p-desc"></div><div class="tabpanel" id="p-spec" hidden></div><div class="tabpanel" id="p-ship" hidden></div></div></div>' +
+      '<section class="wrap sec"><div class="sec-head"><div><span class="eyebrow" data-i18n-pt="Continua a explorar" data-i18n-en="Keep exploring"></span><h2>' + t('related') + '</h2></div>' +
+      '<a class="btn btn-quiet btn-sm" href="' + LINKC(P.cat) + '">' + t('see_all') + '</a></div><div class="rail" id="related"></div></section>';
+
+    var rows = [[t('cat'), catName(P.cat)], [t('brand'), P.brand], [t('ref'), P.id]].concat(specs.map(function (s) { return [en() ? s[1] : s[0], s[2]]; }));
+    $('#p-desc').innerHTML = '<p>' + esc(P.name) + '.</p><p style="margin-top:.8rem">' + (en()
+      ? 'Sold and supported by EliteDigital, the longest-established computer retail network in Portugal. Every unit is checked before shipping and covered by the legal warranty, with in-house technical support available for the lifetime of the product.'
+      : 'Vendido e acompanhado pela EliteDigital, a rede de lojas de informática com mais história em Portugal. Cada unidade é verificada antes do envio e coberta pela garantia legal, com assistência técnica própria durante toda a vida do produto.') + '</p>' +
+      (specs.length ? '<ul>' + specs.map(function (s) { return '<li><b>' + esc(en() ? s[1] : s[0]) + ':</b> ' + esc(s[2]) + '</li>'; }).join('') + '</ul>' : '');
+    $('#p-spec').innerHTML = '<p class="tiny muted">' + t('spec_from') + ' — <span class="mono">' + esc(P.name) + '</span></p><div class="specs" style="margin-top:1rem">' + rows.map(function (r) { return '<div class="specs-row"><span class="k">' + esc(r[0]) + '</span><span>' + esc(r[1]) + '</span></div>'; }).join('') + '</div>';
+    $('#p-ship').innerHTML = '<ul>' + (en()
+      ? '<li>Dispatch within 24h on confirmed in-stock items.</li><li>Free shipping on orders over €150.</li><li>14 days to return, no questions asked.</li><li>2-year legal warranty, handled in our own workshops.</li><li>Support: +351 234 340 871 · loja.online@elitedigital.pt</li>'
+      : '<li>Expedição em 24h para artigos com stock confirmado.</li><li>Envio grátis em encomendas acima de 150 €.</li><li>14 dias para devolver, sem justificação.</li><li>2 anos de garantia legal, tratada nas nossas oficinas.</li><li>Apoio: +351 234 340 871 · loja.online@elitedigital.pt</li>') + '</ul>';
+
+    var rel = DATA.products.filter(function (x) { return x.cat === P.cat && x.id !== P.id; }).slice(0, 8);
+    if (rel.length < 4) rel = rel.concat(DATA.products.filter(function (x) { return x.id !== P.id && rel.indexOf(x) === -1; })).slice(0, 8);
+    $('#related').innerHTML = rel.map(cardHTML).join('');
+    $$('#related .reveal').forEach(function (el) { el.classList.add('in'); });
+    applyLang();
+    observeReveal();
+  }
+
+
+  /* ------------------------------------------------------------- CONTA ---- */
+  function eyeBtn() {
+    return '<button class="eye" type="button" data-eye aria-label="mostrar/ocultar">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/></svg></button>';
+  }
+  function viewAccount() {
+    document.title = t('login_title') + ' — PCZONE';
+    $('#view').innerHTML =
+      '<div class="wrap"><nav class="crumb" aria-label="breadcrumb"><a href="#/">' + t('home') + '</a><span>/</span><span>' + t('login_title') + '</span></nav></div>' +
+      '<section class="wrap auth"><div class="auth-card card corner">' +
+      '<span class="eyebrow">PCZONE ID</span><h1 id="auth-title">' + t('login_title') + '</h1>' +
+      '<p class="auth-sub" id="auth-sub">' + t('login_sub') + '</p>' +
+      '<form id="lf" novalidate>' +
+      '<div class="field"><label for="li-mail">' + t('email_l') + '</label><div class="in"><input id="li-mail" type="email" autocomplete="email" placeholder="o.teu@email.pt"></div></div>' +
+      '<div class="field"><label for="li-pass">' + t('pass_l') + '</label><div class="in has-eye"><input id="li-pass" type="password" autocomplete="current-password" placeholder="••••••••">' + eyeBtn() + '</div></div>' +
+      '<div class="auth-row"><a href="#" id="forgot">' + t('forgot') + '</a></div>' +
+      '<button class="btn btn-primary" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg><span>' + t('signin') + '</span></button>' +
+      '<p class="auth-msg" id="lf-msg"></p></form>' +
+      '<form id="rf" novalidate hidden>' +
+      '<div class="field"><label for="rg-name">' + t('name_l') + '</label><div class="in"><input id="rg-name" type="text" autocomplete="name" placeholder="O teu nome"></div></div>' +
+      '<div class="field"><label for="rg-mail">' + t('email_l') + '</label><div class="in"><input id="rg-mail" type="email" autocomplete="email" placeholder="o.teu@email.pt"></div></div>' +
+      '<div class="field"><label for="rg-pass">' + t('pass_l') + '</label><div class="in has-eye"><input id="rg-pass" type="password" autocomplete="new-password" placeholder="••••••••">' + eyeBtn() + '</div></div>' +
+      '<button class="btn btn-primary" type="submit"><span>' + t('reg_btn') + '</span></button>' +
+      '<p class="auth-msg" id="rf-msg"></p></form>' +
+      '<ul class="auth-perks">' +
+      '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>' + t('perk1') + '</li>' +
+      '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>' + t('perk2') + '</li>' +
+      '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>' + t('perk3') + '</li></ul>' +
+      '<p class="auth-alt" id="auth-alt">' + t('no_account') + ' <a href="#" id="to-reg">' + t('create') + '</a></p>' +
+      '</div></section>';
+
+    var regMode = false;
+    function setMode(r) {
+      regMode = r;
+      $('#lf').hidden = r; $('#rf').hidden = !r;
+      $('#auth-title').textContent = r ? t('reg_title') : t('login_title');
+      $('#auth-sub').textContent = r ? t('login_sub') : t('login_sub');
+      $('#auth-alt').innerHTML = r
+        ? t('have_account') + ' <a href="#" id="to-reg">' + t('signin_link') + '</a>'
+        : t('no_account') + ' <a href="#" id="to-reg">' + t('create') + '</a>';
+    }
+    $('#view').addEventListener('click', function (e) {
+      var eye = e.target.closest('[data-eye]');
+      if (eye) { var inp = eye.parentElement.querySelector('input'); inp.type = inp.type === 'password' ? 'text' : 'password'; return; }
+      var sw = e.target.closest('#to-reg');
+      if (sw) { e.preventDefault(); setMode(!regMode); return; }
+      if (e.target.closest('#forgot')) { e.preventDefault(); toast(t('ok_forgot')); }
+    });
+    $('#view').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var isReg = e.target.id === 'rf';
+      var mail = $(isReg ? '#rg-mail' : '#li-mail').value.trim();
+      var pass = $(isReg ? '#rg-pass' : '#li-pass').value;
+      var msg = $(isReg ? '#rf-msg' : '#lf-msg');
+      msg.className = 'auth-msg';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) { msg.classList.add('err'); msg.textContent = t('err_email'); return; }
+      if (pass.length < 4) { msg.classList.add('err'); msg.textContent = t('err_pass'); return; }
+      localStorage.setItem('ed_user', mail);
+      msg.classList.add('ok'); msg.textContent = isReg ? t('ok_reg') : t('ok_login');
+      toast((isReg ? t('ok_reg') : t('ok_login')));
+      setTimeout(function () { location.hash = '#/'; }, 900);
+    });
+    applyLang();
+    observeReveal();
+  }
+
+  /* ------------------------------------------------------------ ROUTER ---- */
+  var current = null;
+  function route() {
+    var h = location.hash || '#/';
+    var m;
+    if ((m = h.match(/^#\/conta$/))) { current = ['acct']; viewAccount(); }
+    else if ((m = h.match(/^#\/c\/?([^\/]*)$/))) { current = ['cat', m[1]]; viewCat(m[1]); }
+    else if ((m = h.match(/^#\/p\/(.+)$/))) { current = ['prod', m[1]]; viewProduct(m[1]); }
+    else { current = ['home']; viewHome(); }
+    window.scrollTo(0, 0);
+  }
+
+  /* ------------------------------------------------------ chrome/init ----- */
+  function init() {
+    var head = $('.site-head');
+    var bar = $('#pbar');
+    var onScroll = function () {
+      if (head) head.classList.toggle('scrolled', window.scrollY > 8);
+      if (bar) {
+        var h2 = document.documentElement;
+        var p = h2.scrollTop / Math.max(1, (h2.scrollHeight - h2.clientHeight));
+        bar.style.width = (p * 100).toFixed(2) + '%';
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    document.addEventListener('click', function (e) {
+      var lb = e.target.closest('.lang button');
+      if (lb) { lang = lb.dataset.lang; applyLang(); if (current) route(); return; }
+
+      if (e.target.closest('[data-toggle="search"]')) { $('.searchbar').classList.add('open'); $('.searchbar input').focus(); return; }
+      if (e.target.closest('[data-close="search"]')) { $('.searchbar').classList.remove('open'); return; }
+      if (e.target.closest('[data-toggle="nav"]')) { $('.nav').classList.toggle('open'); return; }
+
+      var arr = e.target.closest('[data-scroll]');
+      if (arr) { var rail = $(arr.dataset.target); if (rail) rail.scrollBy({ left: (arr.dataset.scroll === 'next' ? 1 : -1) * rail.clientWidth * 0.8, behavior: 'smooth' }); return; }
+
+      var hit = e.target.closest('.search-hit');
+      if (hit) { $('.searchbar').classList.remove('open'); return; }
+
+      var tab = e.target.closest('.tabs button');
+      if (tab) {
+        $$('.tabs button').forEach(function (b) { b.setAttribute('aria-selected', 'false'); });
+        tab.setAttribute('aria-selected', 'true');
+        $$('.tabpanel').forEach(function (pnl) { pnl.hidden = pnl.id !== tab.dataset.panel; });
+        return;
+      }
+
+      var q = e.target.closest('[data-qty]');
+      if (q) { var inp = $('#qty'); if (inp) inp.value = Math.max(1, (parseInt(inp.value, 10) || 1) + parseInt(q.dataset.qty, 10)); return; }
+
+      var btn = e.target.closest('[data-act]');
+      if (btn) {
+        var act = btn.dataset.act;
+        if (act === 'add') {
+          var p2 = byId[btn.dataset.id || (btn.closest('[data-id]') || {}).dataset.id];
+          if (!p2 || p2.esgotado) return;
+          var qty = Math.max(1, parseInt(($('#qty') || {}).value || '1', 10) || 1);
+          var c = cart(); c[p2.id] = (c[p2.id] || 0) + qty;
+          localStorage.setItem('ed_cart', JSON.stringify(c)); updateBadge();
+          btn.classList.add('done'); setTimeout(function () { btn.classList.remove('done'); }, 1200);
+          toast(p2.name.slice(0, 46) + (p2.name.length > 46 ? '…' : '') + ' — ' + t('added'));
+          return;
+        }
+        e.preventDefault();
+        toast(act === 'wish' ? (en() ? 'Saved to wishlist' : 'Guardado na lista de desejos') : (en() ? 'Added to compare' : 'Adicionado à comparação'));
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') { e.preventDefault(); $('.searchbar').classList.add('open'); $('.searchbar input').focus(); }
+      if (e.key === 'Escape') { $('.searchbar').classList.remove('open'); $('.nav').classList.remove('open'); }
+    });
+
+    var input = $('.searchbar input'), hits = $('.search-hits');
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      if (q.length < 2) { hits.innerHTML = ''; return; }
+      var res = DATA.products.filter(function (p) { return (p.name + ' ' + p.brand + ' ' + p.cat).toLowerCase().indexOf(q) > -1; }).slice(0, 6);
+      hits.innerHTML = res.length
+        ? res.map(function (p) { return '<a class="search-hit" href="' + LINKP(p.id) + '"><img loading="lazy" src="' + esc(p.img) + '" alt="" onerror="this.style.visibility=\'hidden\'"><span class="sh-name">' + esc(p.name) + '</span><span class="sh-price">' + esc((p.price || '').replace('€', '').trim()) + '€</span></a>'; }).join('') +
+          '<p class="tiny muted" style="padding:.2rem .7rem">' + res.length + ' ' + t('results') + '</p>'
+        : '<p class="muted tiny" style="padding:.2rem .7rem">' + t('no_results') + '</p>';
+    });
+
+    var nf = null;
+    document.addEventListener('submit', function (e) {
+      if (e.target.classList.contains('news')) {
+        e.preventDefault();
+        var mail = e.target.querySelector('input').value.trim();
+        var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
+        e.target.querySelector('.news-msg').textContent = ok ? t('newsletter_ok') : t('newsletter_err');
+        if (ok) e.target.reset();
+      }
+    });
+
+    updateBadge();
+    applyLang();
+    window.addEventListener('hashchange', route);
+    route();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a42a031d48ffc640',t:'MTc5MDY3NDY3Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
